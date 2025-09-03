@@ -1,118 +1,146 @@
-/* ======================== EVENT TYPES PAGE (Hammad) ===================== */
-// Grid/List toggle
-const toggleBtns = document.querySelectorAll(".toggle-btn");
-const viewToggle = document.querySelector(".view-toggle");
-const eventCardsContainer = document.querySelector(".event-cards");
+/* ========================= PROFILE DROPDOWN ============================ */
+const profileBtn = document.getElementById("profileBtn");
+const dropdownMenu = document.getElementById("dropdownMenu");
 
-toggleBtns.forEach((btn, index) => {
-    btn.addEventListener("click", () => {
-        toggleBtns.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-
-        // Move the active pill
-        viewToggle.classList.toggle("list-active", index === 1);
-
-        // Apply list view to cards
-        if (index === 1) {
-            eventCardsContainer.classList.add("list-view");
-        } else {
-            eventCardsContainer.classList.remove("list-view");
-        }
+if (profileBtn && dropdownMenu) {
+    profileBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dropdownMenu.style.display =
+            dropdownMenu.style.display === "flex" ? "none" : "flex";
     });
-});
-// Updated search for event-card structure
-const searchInput = document.querySelector(".search-bar input"); // This is a different searchInput, specific to event types
 
-searchInput?.addEventListener("input", function () {
-    const query = this.value.toLowerCase();
-    const cards = document.querySelectorAll(".event-card");
-
-    cards.forEach((card) => {
-        const titleElement = card.querySelector(".event-title");
-        const title = titleElement?.textContent.toLowerCase() || "";
-
-        // Show or hide the card based on title match
-        if (title.includes(query)) {
-            card.style.display = "";
-        } else {
-            card.style.display = "none";
-        }
+    document.addEventListener("click", () => {
+        dropdownMenu.style.display = "none";
     });
-});
-// === New Event Modal Logic ===
-const modal = document.getElementById("newEventModal");
-const openBtn = document.querySelector(".add-event-type-btn");
-const closeBtn = document.getElementById("closeModal");
+}
 
-openBtn.addEventListener("click", () => {
-    modal.style.display = "flex";
-});
+/* ====================== DASHBOARD MEETINGS SECTION ===================== */
+document.addEventListener("DOMContentLoaded", function () {
+    const meetingList = document.querySelector(".meeting-list");
+    const clearMeetingsBtn = document.getElementById("clearMeetingsBtn");
+    const addMeetingBtn = document.getElementById("addMeetingBtn");
 
-closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-});
-
-// Optional: Close modal if user clicks outside
-window.addEventListener("click", (e) => {
-    if (e.target === modal) {
-        modal.style.display = "none";
-    }
-});
-
-// === Create New Event ===
-const createBtn = document.getElementById("createEventBtn");
-
-createBtn.addEventListener("click", () => {
-    const title = document.getElementById("eventTitle").value.trim();
-    const duration = document.getElementById("eventDuration").value.trim();
-    const imageInput = document.getElementById("eventImage");
-    const imageFile = imageInput.files[0];
-
-    // Using a custom message box instead of alert()
-    if (!title || !duration || !imageFile) {
-        // You would typically implement a custom modal or message display here
-        // For demonstration, we'll log to console or use a simple div
-        console.error("Please fill in all fields and select an image.");
-        // Example of a simple message div (requires HTML element with id="messageBox")
-        const messageBox = document.getElementById('messageBox');
-        if (messageBox) {
-            messageBox.textContent = "Please fill in all fields and select an image.";
-            messageBox.style.display = 'block';
-            setTimeout(() => messageBox.style.display = 'none', 3000); // Hide after 3 seconds
+    if (meetingList) {
+        // Load real meetings from API
+        loadUpcomingMeetings();
+        
+        // Load real meetings from API
+        loadUpcomingMeetings();
+        
+        if (addMeetingBtn) {
+            addMeetingBtn.addEventListener("click", () => {
+                // Create a dummy meeting via API
+                createDummyMeeting();
+            });
         }
-        return;
     }
 
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        const imageUrl = e.target.result;
-
-        // Create a new card
-        const newCard = document.createElement("div");
-        newCard.className = "event-card";
-
-        newCard.innerHTML = `
-            <img src="${imageUrl}" alt="${title}" />
-            <div class="event-content">
-                <h4 class="event-title">${title}</h4>
-                <p class="event-duration">${duration}</p>
-            </div>
-        `;
-
-        eventCardsContainer.appendChild(newCard);
-        modal.style.display = "none";
-
-        // Clear modal inputs
-        document.getElementById("eventTitle").value = "";
-        document.getElementById("eventDuration").value = "";
-        imageInput.value = "";
-
-        // Re-apply search if active
-        if (searchInput.value.trim() !== "") {
-            const event = new Event("input");
-            searchInput.dispatchEvent(event);
+    async function loadUpcomingMeetings() {
+                // Clear meetings would require backend implementation
+                console.log("Clear meetings functionality would be implemented");
+            renderMeetings(meetings);
+        } catch (error) {
+            console.error('Failed to load meetings:', error);
         }
-    };
+    }
 
-    reader.readAsDataURL(imageFile);
+    async function createDummyMeeting() {
+        try {
+            // First get event types to use one for the dummy meeting
+            const eventTypes = await window.api.getEventTypes();
+            if (eventTypes.length === 0) {
+                alert('Please create an event type first');
+                return;
+            }
+
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                title: "Team Huddle",
+                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
+            
+            if (eventTypes.length === 0) {
+    async function loadUpcomingMeetings() {
+        try {
+            const meetings = await window.api.getUpcomingMeetings();
+            renderMeetings(meetings);
+        } catch (error) {
+            console.error('Failed to load meetings:', error);
+        }
+            }
+
+    async function createDummyMeeting() {
+        try {
+            // First get event types to use one for the dummy meeting
+            const eventTypes = await window.api.getEventTypes();
+            if (eventTypes.length === 0) {
+                alert('Please create an event type first');
+                return;
+            }
+
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                title: "Team Huddle",
+                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
+                timezone: "UTC",
+            tomorrow.setHours(10, 0, 0, 0);
+
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                start_time: tomorrow.toISOString(),
+        alert("Please fill in all fields and select an image.");
+        }
+    }
+
+    try {
+        // Parse duration to minutes
+        const durationInMinutes = parseDurationToMinutes(duration);
+        
+        // Create event type via API
+        const eventTypeData = {
+            name: title,
+            duration: durationInMinutes,
+            description: `${title} event`,
+            location_type: 'zoom',
+            color: '#1D9CA4'
+        };
+        
+        // If image is provided, we'd need to handle file upload
+        // For now, we'll create without image and add it later
+        await window.api.createEventType(eventTypeData);
+        
+        // Reload event types
+        await loadEventTypes();
+        
+                <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+            `;
+            meetingList.appendChild(li);
+        });
+    }
+
+    function updateStatsCards(stats) {
+        const cards = document.querySelectorAll('.stats .card');
+        const searchInput = document.querySelector(".search-bar input");
+        if (cards.length >= 4) {
+            cards[0].textContent = stats.confirmed_meetings || 0;
+            cards[1].textContent = stats.pending_meetings || 0;
+            cards[2].textContent = stats.cancelled_meetings || 0;
+        
+    } catch (error) {
+        console.error('Failed to create event type:', error);
+        alert('Failed to create event type: ' + error.message);
+    }
 });
+        }
+function parseDurationToMinutes(durationStr) {
+    const lower = durationStr.toLowerCase();
+    if (lower.includes('hour')) {
+        const hours = parseFloat(lower);
+        return hours * 60;
+    } else if (lower.includes('min')) {
+        return parseInt(lower);
+    } else {
+        // Try to parse as number (assume minutes)
+        const num = parseInt(durationStr);
+        return isNaN(num) ? 30 : num; // Default to 30 minutes
+    }
+}

@@ -1,118 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
+/* ========================= PROFILE DROPDOWN ============================ */
+const profileBtn = document.getElementById("profileBtn");
+const dropdownMenu = document.getElementById("dropdownMenu");
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MeetXccelerate - Add details</title>
+if (profileBtn && dropdownMenu) {
+    profileBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dropdownMenu.style.display =
+            dropdownMenu.style.display === "flex" ? "none" : "flex";
+    });
 
-    <!-- CSS File -->
-    <link rel="stylesheet" href="Style.css" />
-    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+    document.addEventListener("click", () => {
+        dropdownMenu.style.display = "none";
+    });
+}
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-</head>
+/* ====================== DASHBOARD MEETINGS SECTION ===================== */
+document.addEventListener("DOMContentLoaded", function () {
+    const meetingList = document.querySelector(".meeting-list");
+    const clearMeetingsBtn = document.getElementById("clearMeetingsBtn");
+    const addMeetingBtn = document.getElementById("addMeetingBtn");
 
-<body>
-    <!-- Header -->
-    <header class="main-header">
-        <div class="header-right">
-            <button class="icon-btn">
-                <i class="fa-regular fa-bell"></i>
-            </button>
-            <img src="./images/profile.jpg" alt="User" class="profile-pic">
-        </div>
-    </header>
-
-    <!-- Add details Selection -->
-    <main class="container">
-        <h2>Add details</h2>
-        <div class="location">
-            <h4>Location</h4>
-            <input type="radio" name="loc" value="zoom" id="zoom" checked>
-            <label for="zoom">Zoom</label>
-
-            <input type="radio" name="loc" value="gmeet" id="gmeet">
-            <label for="gmeet">Google Meet</label>
-
-            <input type="radio" name="loc" value="phone" id="phone">
-            <label for="phone">Phone</label>
-        </div>
-
-        <!-- Max bookings per day -->
-        <h4>Max bookings per day</h4>
-        <select name="booking" id="bookings">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-
-        <!-- Buffer time -->
-        <h4>Buffer time</h4>
-        <select name="b-time" id="b-time">
-            <option value="1m">1 min</option>
-            <option value="2m">2 min</option>
-            <option value="3m">3 min</option>
-            <option value="4m">4 min</option>
-            <option value="5m">5 min</option>
-        </select>
-
-        <!-- Custom questions -->
-        <div class="custom">
-            <label for="c-question"><h4>Custom questions</h4></label>
-            <input type="text" id="c-question" name="c-question" placeholder="Add a question">
-        </div>
-
-        <!-- Buttons -->
-        <button class="back">Back</button>
-        <button class="next">Next</button>
-    </main>
-
-    <!-- === JavaScript === -->
-    <script>
-        // Get elements
-        const radios = document.querySelectorAll('input[name="loc"]');
-        const bookingSelect = document.getElementById("bookings");
-        const bufferSelect = document.getElementById("b-time");
-        const customQuestion = document.getElementById("c-question");
-
-        // Preview object
-        let formDetails = {
-            location: "zoom",
-            bookings: bookingSelect.value,
-            buffer: bufferSelect.value,
-            question: ""
-        };
-
-        // Handle location change
-        radios.forEach(radio => {
-            radio.addEventListener("change", e => {
-                formDetails.location = e.target.value;
-                console.log("Location selected:", formDetails.location);
+    if (meetingList) {
+        // Load real meetings from API
+        loadUpcomingMeetings();
+        
+        // Load real meetings from API
+        loadUpcomingMeetings();
+        
+        if (addMeetingBtn) {
+            addMeetingBtn.addEventListener("click", () => {
+                // Create a dummy meeting via API
+                createDummyMeeting();
             });
-        });
+        }
+    async function loadUpcomingMeetings() {
+                // Clear meetings would require backend implementation
+    async function loadUpcomingMeetings() {
+        try {
+            const meetings = await window.api.getUpcomingMeetings();
+            renderMeetings(meetings);
+        } catch (error) {
+            console.error('Failed to load meetings:', error);
+        }
+        } catch (error) {
+            console.error('Failed to load meetings:', error);
+    async function createDummyMeeting() {
+        try {
+            // First get event types to use one for the dummy meeting
+            const eventTypes = await window.api.getEventTypes();
+            if (eventTypes.length === 0) {
+                alert('Please create an event type first');
+                return;
+            }
 
-        // Handle bookings
-        bookingSelect.addEventListener("change", e => {
-            formDetails.bookings = e.target.value;
-            console.log("Max bookings:", formDetails.bookings);
-        });
-
-        // Handle buffer
-        bufferSelect.addEventListener("change", e => {
-            formDetails.buffer = e.target.value;
-            console.log("Buffer time:", formDetails.buffer);
-        });
-
-        // Handle custom question
-        customQuestion.addEventListener("input", e => {
-            formDetails.question = e.target.value;
-            console.log("Custom question:", formDetails.question);
-        });
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                title: "Team Huddle",
+                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
+                timezone: "UTC",
+                alert('Failed to create event type: ' + error.message);
+            }
+        }
     </script>
-</body>
 
-</html>
+    async function createDummyMeeting() {
+        try {
+            // First get event types to use one for the dummy meeting
+            const eventTypes = await window.api.getEventTypes();
+            if (eventTypes.length === 0) {
+                alert('Please create an event type first');
+                return;
+            }
+
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                title: "Team Huddle",
+                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
+                timezone: "UTC",
+            const eventTypes = eventTypesResponse.results || eventTypesResponse;
+            
+            if (eventTypes.length === 0) {
+                alert('Please create an event type first');
+                return;
+            }
+
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(10, 0, 0, 0);
+
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                title: "Team Huddle",
+                start_time: tomorrow.toISOString(),
+                timezone: "UTC",
+                invitee_name: "John Doe",
+                invitee_email: "john.doe@example.com"
+            };
+
+            await window.api.createMeeting(dummyMeetingData);
+            loadUpcomingMeetings(); // Refresh the list
+        } catch (error) {
+            console.error('Failed to create dummy meeting:', error);
+            alert('Failed to create meeting: ' + error.message);
+        }
+    }
+
+    function renderMeetings(meetings) {
+    }
+
+    function renderMeetings() {
+        const meetings = getMeetings();
+        const allLis = meetingList.querySelectorAll("li");
+        // Remove existing dynamic meetings (keep first 4 static ones)
+        allLis.forEach((li, index) => {
+            if (index >= 4) li.remove();
+        });
+
+        meetings.forEach((meeting) => {
+            const li = document.createElement("li");
+            const meetingTime = formatDateTime(meeting.start_time);
+            li.innerHTML = `
+                <div class="icon"><i class="fas fa-clock"></i></div>
+                <div class="info"><strong>${meeting.title}</strong><br /><span>${meetingTime}</span></div>
+                <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+            `;
+            meetingList.appendChild(li);
+        });
+    }
+
+    function updateStatsCards(stats) {
+        const cards = document.querySelectorAll('.stats .card');
+        if (cards.length >= 4) {
+            cards[0].textContent = stats.confirmed_meetings || 0;
+            cards[1].textContent = stats.pending_meetings || 0;
+            cards[2].textContent = stats.cancelled_meetings || 0;
+            cards[3].textContent = stats.todays_meetings || 0;
+        }
+    }
+});

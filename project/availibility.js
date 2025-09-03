@@ -1,302 +1,136 @@
-// ===================================================
-// ---------------- Per-Day Availability--------------
-const daysFull = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+/* ========================= PROFILE DROPDOWN ============================ */
+const profileBtn = document.getElementById("profileBtn");
+const dropdownMenu = document.getElementById("dropdownMenu");
 
-function createTimeSlot(start = "09:00", end = "12:00", body, restoreBtn, addBtn) {
-    const slot = document.createElement("div");
-    slot.classList.add("time-select-group");
+if (profileBtn && dropdownMenu) {
+    profileBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dropdownMenu.style.display =
+            dropdownMenu.style.display === "flex" ? "none" : "flex";
+    });
 
-    const startInput = document.createElement("input");
-    startInput.type = "time";
-    startInput.value = start;
+    document.addEventListener("click", () => {
+        dropdownMenu.style.display = "none";
+    });
+}
 
-    const endInput = document.createElement("input");
-    endInput.type = "time";
-    endInput.value = end;
+/* ====================== DASHBOARD MEETINGS SECTION ===================== */
+document.addEventListener("DOMContentLoaded", function () {
+    const meetingList = document.querySelector(".meeting-list");
+    const clearMeetingsBtn = document.getElementById("clearMeetingsBtn");
+    const addMeetingBtn = document.getElementById("addMeetingBtn");
 
-    const delBtn = document.createElement("button");
-    delBtn.className = "delete-slot";
-    delBtn.innerHTML = "&times;";
-    delBtn.onclick = () => {
-        slot.remove();
-        checkOverlaps();
-        if (body.querySelectorAll(".time-select-group").length === 0) {
-            restoreBtn.style.display = "inline-block";
-            addBtn.style.display = "none";
+    if (meetingList) {
+        // Load real meetings from API
+        loadUpcomingMeetings();
+        
+        // Load real meetings from API
+        loadUpcomingMeetings();
+        
+        if (addMeetingBtn) {
+            addMeetingBtn.addEventListener("click", () => {
+                // Create a dummy meeting via API
+                createDummyMeeting();
+            });
         }
-    };
+    async function loadUpcomingMeetings() {
+                // Clear meetings would require backend implementation
+    async function loadUpcomingMeetings() {
+        try {
+            const meetings = await window.api.getUpcomingMeetings();
+            renderMeetings(meetings);
+        } catch (error) {
+            console.error('Failed to load meetings:', error);
+        }
+        } catch (error) {
+            console.error('Failed to load meetings:', error);
+    async function createDummyMeeting() {
+        try {
+            // First get event types to use one for the dummy meeting
+            const eventTypes = await window.api.getEventTypes();
+            if (eventTypes.length === 0) {
+                alert('Please create an event type first');
+                return;
+            }
 
-    slot.appendChild(startInput);
-    slot.appendChild(document.createTextNode(" to "));
-    slot.appendChild(endInput);
-    slot.appendChild(delBtn);
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                title: "Team Huddle",
+                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
+                timezone: "UTC",
 
-    startInput.addEventListener("input", checkOverlaps);
-    endInput.addEventListener("input", checkOverlaps);
+    async function createDummyMeeting() {
+        try {
+            // First get event types to use one for the dummy meeting
+            const eventTypes = await window.api.getEventTypes();
+            if (eventTypes.length === 0) {
+                alert('Please create an event type first');
+                return;
+            }
 
-    return slot;
-}
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                title: "Team Huddle",
+                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
+                timezone: "UTC",
+            const eventTypes = eventTypesResponse.results || eventTypesResponse;
+            
+            if (eventTypes.length === 0) {
+                alert('Please create an event type first');
+                return;
+            }
 
-function createDayBlock(day) {
-    const block = document.createElement("div");
-    block.className = "day-block";
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(10, 0, 0, 0);
 
-    const header = document.createElement("div");
-    header.className = "day-header";
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                title: "Team Huddle",
+                start_time: tomorrow.toISOString(),
+                timezone: "UTC",
+                invitee_name: "John Doe",
+                invitee_email: "john.doe@example.com"
+            };
 
-    const dayName = document.createElement("span");
-    dayName.textContent = day;
+            await window.api.createMeeting(dummyMeetingData);
+            loadUpcomingMeetings(); // Refresh the list
+        } catch (error) {
+            console.error('Failed to create dummy meeting:', error);
+            alert('Failed to create meeting: ' + error.message);
+        }
+    }
 
-    const arrow = document.createElement("span");
-    arrow.className = "arrow";
-    arrow.textContent = "▾";
+    function renderMeetings(meetings) {
+    }
 
-    header.appendChild(dayName);
-    header.appendChild(arrow);
-    block.appendChild(header);
-
-    const body = document.createElement("div");
-    body.className = "day-body";
-
-    const addBtn = document.createElement("button");
-    addBtn.className = "add-slot";
-    addBtn.textContent = "Add another time slot";
-
-    const restoreBtn = document.createElement("button");
-    restoreBtn.className = "add-slot";
-    restoreBtn.textContent = "Add a time slot";
-    restoreBtn.style.display = "none";
-
-    addBtn.onclick = () => {
-        const newSlot = createTimeSlot("09:00", "12:00", body, restoreBtn, addBtn);
-        body.insertBefore(newSlot, addBtn);
-        checkOverlaps();
-    };
-
-    restoreBtn.onclick = () => {
-        const newSlot = createTimeSlot("09:00", "12:00", body, restoreBtn, addBtn);
-        body.insertBefore(newSlot, restoreBtn);
-        restoreBtn.style.display = "none";
-        addBtn.style.display = "inline-block";
-        checkOverlaps();
-    };
-
-    // Default slot
-    body.appendChild(createTimeSlot("09:00", "12:00", body, restoreBtn, addBtn));
-    body.appendChild(addBtn);
-    body.appendChild(restoreBtn);
-
-    header.onclick = () => block.classList.toggle("expanded");
-
-    block.appendChild(body);
-    return block;
-}
-
-function checkOverlaps() {
-    document.querySelectorAll(".day-body").forEach(body => {
-        body.querySelectorAll(".overlap-msg").forEach(msg => msg.remove());
-
-        const slots = Array.from(body.querySelectorAll(".time-select-group")).map(slot => {
-            const start = parseTime(slot.querySelectorAll("input")[0].value);
-            const end = parseTime(slot.querySelectorAll("input")[1].value);
-            return { start, end, el: slot };
+    function renderMeetings() {
+        const meetings = getMeetings();
+        const allLis = meetingList.querySelectorAll("li");
+        // Remove existing dynamic meetings (keep first 4 static ones)
+        allLis.forEach((li, index) => {
+            if (index >= 4) li.remove();
         });
 
-        for (let i = 0; i < slots.length; i++) {
-            for (let j = i + 1; j < slots.length; j++) {
-                if (slots[i].start < slots[j].end && slots[j].start < slots[i].end) {
-                    showOverlap(slots[i].el);
-                    showOverlap(slots[j].el);
-                }
-            }
+        meetings.forEach((meeting) => {
+            const li = document.createElement("li");
+            const meetingTime = formatDateTime(meeting.start_time);
+            li.innerHTML = `
+                <div class="icon"><i class="fas fa-clock"></i></div>
+                <div class="info"><strong>${meeting.title}</strong><br /><span>${meetingTime}</span></div>
+                <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+            `;
+            meetingList.appendChild(li);
+        });
+    }
+
+    function updateStatsCards(stats) {
+        const cards = document.querySelectorAll('.stats .card');
+        if (cards.length >= 4) {
+            cards[0].textContent = stats.confirmed_meetings || 0;
+            cards[1].textContent = stats.pending_meetings || 0;
+            cards[2].textContent = stats.cancelled_meetings || 0;
+            cards[3].textContent = stats.todays_meetings || 0;
         }
-    });
-}
-
-function parseTime(t) {
-    const [h, m] = t.split(":").map(Number);
-    return h * 60 + m;
-}
-
-function showOverlap(el) {
-    const msg = document.createElement("div");
-    msg.className = "overlap-msg";
-    msg.textContent = "Times overlap with another set of times.";
-    el.insertAdjacentElement("afterend", msg);
-}
-
-function addWeek() {
-    const weekDiv = document.createElement("div");
-    weekDiv.className = "week-container";
-
-    // Remove Week Button
-    const removeWeekBtn = document.createElement("button");
-    removeWeekBtn.className = "remove-week-btn";
-    removeWeekBtn.textContent = "Remove week";
-    removeWeekBtn.onclick = () => {
-        weekDiv.remove();
-        if (document.querySelectorAll(".week-container").length === 0) {
-            document.getElementById("add-week-btn").style.display = "block";
-        }
-    };
-
-    const container = document.createElement("div");
-    daysFull.forEach(day => container.appendChild(createDayBlock(day)));
-
-    // Add Another Week Button
-    const addAnotherWeekBtn = document.createElement("button");
-    addAnotherWeekBtn.className = "add-another-week-btn";
-    addAnotherWeekBtn.textContent = "+ Add another week";
-    addAnotherWeekBtn.onclick = () => addWeek();
-
-    weekDiv.appendChild(removeWeekBtn);
-    weekDiv.appendChild(container);
-    weekDiv.appendChild(addAnotherWeekBtn);
-
-    document.getElementById("weeks-wrapper").appendChild(weekDiv);
-    document.getElementById("add-week-btn").style.display = "none";
-}
-
-// Initialize with one week
-addWeek();
-checkOverlaps();
-
-// =====================================================
-// One-time exceptions
-
-    let count = 1;
-
-    document.getElementById("add-exception").addEventListener("click", function () {
-        const container = document.getElementById("exceptions-container");
-
-        const row = document.createElement("div");
-        row.className = "exception-row";
-
-        const dateInput = document.createElement("input");
-        dateInput.type = "date";
-
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.id = "unavailable-" + count;
-
-        const label = document.createElement("label");
-        label.setAttribute("for", "unavailable-" + count);
-        label.textContent = "Mark as unavailable";
-
-        row.appendChild(dateInput);
-        row.appendChild(checkbox);
-        row.appendChild(label);
-
-        container.appendChild(row);
-
-        count++;
-    });
-
-// =====================================================         
-// Populate Time Zone Dropdown
-const timezoneSelect = document.getElementById('timezone');
-const timeZones = Intl.supportedValuesOf ? Intl.supportedValuesOf('timeZone') : [
-    "UTC", "America/New_York", "Europe/London", "Asia/Tokyo"
-];
-
-timezoneSelect.innerHTML = "";
-timeZones.forEach(zone => {
-    const option = document.createElement('option');
-    option.value = zone;
-    option.textContent = zone.replace('_', ' ');
-    timezoneSelect.appendChild(option);
-});
-
-// Auto-detect user time zone
-const detectedTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-if (detectedTimeZone) {
-    timezoneSelect.value = detectedTimeZone;
-}
-
-// =====================================================
-const googleCheckbox = document.getElementById('google-calendar');
-const outlookCheckbox = document.getElementById('outlook-calendar');
-const googleStatus = document.getElementById('google-status');
-const outlookStatus = document.getElementById('outlook-status');
-const previewSwitch = document.getElementById('preview-switch');
-const popup = document.getElementById('popup');
-const popupText = document.getElementById('popup-text');
-
-// Calendar checkbox logic
-googleCheckbox.addEventListener('change', () => {
-    if (googleCheckbox.checked) {
-        googleStatus.textContent = 'Connected';
-    } else {
-        googleStatus.textContent = 'Disconnected';
-        showPopup('Google Calendar is not connected!');
     }
 });
-
-outlookCheckbox.addEventListener('change', () => {
-    if (outlookCheckbox.checked) {
-        outlookStatus.textContent = 'Connected';
-    } else {
-        outlookStatus.textContent = 'Disconnected';
-        showPopup('Outlook Calendar is not connected!');
-    }
-});
-
-// Toggle Preview mode
-document.getElementById('preview-toggle').addEventListener('click', () => {
-    previewSwitch.classList.toggle('active');
-});
-
-function showPopup(message) {
-    popupText.textContent = message;
-    popup.style.display = 'block';
-}
-
-function closePopup() {
-    popup.style.display = 'none';
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const saveBtn = document.getElementById("save-publish");
-
-  saveBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    // === Collect field values ===
-    const beforeEvent = document.getElementById("before-event").value;
-    const afterEvent = document.getElementById("after-event").value;
-    const lunchStart = document.getElementById("lunch-start").value;
-    const lunchEnd = document.getElementById("lunch-end").value;
-    const timezone = document.getElementById("timezone").value;
-    const googleConnected = document.getElementById("google-calendar").checked;
-    const outlookConnected = document.getElementById("outlook-calendar").checked;
-
-    // === Validation Checks ===
-    if (!beforeEvent || !afterEvent) {
-      alert("⚠️ Please select buffer times (before & after event).");
-      return;
-    }
-
-    if (lunchStart && lunchEnd && lunchStart >= lunchEnd) {
-      alert("⚠️ Lunch break start time must be earlier than end time.");
-      return;
-    }
-
-    if (!timezone) {
-      alert("⚠️ Please select a time zone.");
-      return;
-    }
-
-    if (!googleConnected && !outlookConnected) {
-      alert("⚠️ Please connect at least one calendar (Google/Outlook).");
-      return;
-    }
-
-    // === If everything is valid ===
-    alert("✅ Your availability settings have been saved & published!");
-  });
-});
-
-// === Popup Close Function (already in your HTML) ===
-function closePopup() {
-  document.getElementById("popup").style.display = "none";
-}

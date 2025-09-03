@@ -1,4 +1,136 @@
-document.querySelector("form").addEventListener("submit", function(e) {
-  e.preventDefault();
-  alert("Meeting scheduled successfully!");
+/* ========================= PROFILE DROPDOWN ============================ */
+const profileBtn = document.getElementById("profileBtn");
+const dropdownMenu = document.getElementById("dropdownMenu");
+
+if (profileBtn && dropdownMenu) {
+    profileBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dropdownMenu.style.display =
+            dropdownMenu.style.display === "flex" ? "none" : "flex";
+    });
+
+    document.addEventListener("click", () => {
+        dropdownMenu.style.display = "none";
+    });
+}
+
+/* ====================== DASHBOARD MEETINGS SECTION ===================== */
+document.addEventListener("DOMContentLoaded", function () {
+    const meetingList = document.querySelector(".meeting-list");
+    const clearMeetingsBtn = document.getElementById("clearMeetingsBtn");
+    const addMeetingBtn = document.getElementById("addMeetingBtn");
+
+    if (meetingList) {
+        // Load real meetings from API
+        loadUpcomingMeetings();
+        
+        // Load real meetings from API
+        loadUpcomingMeetings();
+        
+        if (addMeetingBtn) {
+            addMeetingBtn.addEventListener("click", () => {
+                // Create a dummy meeting via API
+                createDummyMeeting();
+            });
+        }
+    async function loadUpcomingMeetings() {
+                // Clear meetings would require backend implementation
+    async function loadUpcomingMeetings() {
+        try {
+            const meetings = await window.api.getUpcomingMeetings();
+            renderMeetings(meetings);
+        } catch (error) {
+            console.error('Failed to load meetings:', error);
+        }
+        } catch (error) {
+            console.error('Failed to load meetings:', error);
+    async function createDummyMeeting() {
+        try {
+            // First get event types to use one for the dummy meeting
+            const eventTypes = await window.api.getEventTypes();
+            if (eventTypes.length === 0) {
+                alert('Please create an event type first');
+                return;
+            }
+
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                title: "Team Huddle",
+                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
+                timezone: "UTC",
+
+    async function createDummyMeeting() {
+        try {
+            // First get event types to use one for the dummy meeting
+            const eventTypes = await window.api.getEventTypes();
+            if (eventTypes.length === 0) {
+                alert('Please create an event type first');
+                return;
+            }
+
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                title: "Team Huddle",
+                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
+                timezone: "UTC",
+            const eventTypes = eventTypesResponse.results || eventTypesResponse;
+            
+            if (eventTypes.length === 0) {
+                alert('Please create an event type first');
+                return;
+            }
+
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(10, 0, 0, 0);
+
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                title: "Team Huddle",
+                start_time: tomorrow.toISOString(),
+                timezone: "UTC",
+                invitee_name: "John Doe",
+                invitee_email: "john.doe@example.com"
+            };
+
+            await window.api.createMeeting(dummyMeetingData);
+            loadUpcomingMeetings(); // Refresh the list
+        } catch (error) {
+            console.error('Failed to create dummy meeting:', error);
+            alert('Failed to create meeting: ' + error.message);
+        }
+    }
+
+    function renderMeetings(meetings) {
+    }
+
+    function renderMeetings() {
+        const meetings = getMeetings();
+        const allLis = meetingList.querySelectorAll("li");
+        // Remove existing dynamic meetings (keep first 4 static ones)
+        allLis.forEach((li, index) => {
+            if (index >= 4) li.remove();
+        });
+
+        meetings.forEach((meeting) => {
+            const li = document.createElement("li");
+            const meetingTime = formatDateTime(meeting.start_time);
+            li.innerHTML = `
+                <div class="icon"><i class="fas fa-clock"></i></div>
+                <div class="info"><strong>${meeting.title}</strong><br /><span>${meetingTime}</span></div>
+                <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+            `;
+            meetingList.appendChild(li);
+        });
+    }
+
+    function updateStatsCards(stats) {
+        const cards = document.querySelectorAll('.stats .card');
+        if (cards.length >= 4) {
+            cards[0].textContent = stats.confirmed_meetings || 0;
+            cards[1].textContent = stats.pending_meetings || 0;
+            cards[2].textContent = stats.cancelled_meetings || 0;
+            cards[3].textContent = stats.todays_meetings || 0;
+        }
+    }
 });

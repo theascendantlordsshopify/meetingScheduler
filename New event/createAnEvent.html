@@ -1,94 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
+/* ========================= PROFILE DROPDOWN ============================ */
+const profileBtn = document.getElementById("profileBtn");
+const dropdownMenu = document.getElementById("dropdownMenu");
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MeetXccelerate - Create an Event</title>
+if (profileBtn && dropdownMenu) {
+    profileBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dropdownMenu.style.display =
+            dropdownMenu.style.display === "flex" ? "none" : "flex";
+    });
 
-    <!-- CSS File -->
-    <link rel="stylesheet" href="Style.css" />
-    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+    document.addEventListener("click", () => {
+        dropdownMenu.style.display = "none";
+    });
+}
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-</head>
+/* ====================== DASHBOARD MEETINGS SECTION ===================== */
+document.addEventListener("DOMContentLoaded", function () {
+    const meetingList = document.querySelector(".meeting-list");
+    const clearMeetingsBtn = document.getElementById("clearMeetingsBtn");
+    const addMeetingBtn = document.getElementById("addMeetingBtn");
 
-<body>
-    <!-- Header -->
-    <header class="main-header">
-        <div class="header-right">
-            <button class="icon-btn">
-                <i class="fa-regular fa-bell"></i>
-            </button>
-            <img src="./images/profile.jpg" alt="User" class="profile-pic">
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="container">
-        <h1>Create an event</h1>
-
-        <!-- Event Name -->
-        <input type="text" id="event-name" placeholder="Event Name" name="eventName">
-
-        <!-- Category -->
-        <select name="category" id="event-category">
-            <option value="">Category</option>
-            <option value="cat1">CategoryNo1</option>
-            <option value="cat2">CategoryNo2</option>
-            <option value="cat3">CategoryNo3</option>
-        </select>
-
-        <!-- Duration -->
-        <div class="duration-wrapper">
-            <label for="duration">Duration</label>
-            <input type="range" id="duration" min="15" max="180" step="15" value="60">
-            <span id="durationValue">1 hour</span>
-        </div>
-
-        <!-- Upload Section -->
-        <section class="upload">
-            <h3>Upload an image or emoji</h3>
-            <p>Images and emojis help people understand your event</p>
-            <button>Upload</button>
-        </section>
-
-        <textarea name="feedback" id="feedback" placeholder=""></textarea>
-
-        <!-- Buttons -->
-        <button class="back">Back</button>
-        <button class="next">Next</button>
-    </main>
-
-    <!-- JavaScript -->
-    <script>
-        // Duration slider
-        const durationSlider = document.getElementById("duration");
-        const durationValue = document.getElementById("durationValue");
-
-        function updateDuration(value) {
-            if (value < 60) {
-                durationValue.textContent = `${value} min`;
-            } else if (value === "60") {
-                durationValue.textContent = "1 hour";
-            } else if (value % 60 === 0) {
-                durationValue.textContent = `${value / 60} hours`;
-            } else {
-                const hours = Math.floor(value / 60);
-                const mins = value % 60;
-                durationValue.textContent = `${hours}h ${mins}m`;
-            }
+    if (meetingList) {
+        // Load real meetings from API
+        loadUpcomingMeetings();
+        
+        // Load real meetings from API
+        loadUpcomingMeetings();
+        
+        if (addMeetingBtn) {
+            addMeetingBtn.addEventListener("click", () => {
+                // Create a dummy meeting via API
+                createDummyMeeting();
+            });
         }
+    async function loadUpcomingMeetings() {
+                // Clear meetings would require backend implementation
+    async function loadUpcomingMeetings() {
+        try {
+            const meetings = await window.api.getUpcomingMeetings();
+            renderMeetings(meetings);
+        } catch (error) {
+            console.error('Failed to load meetings:', error);
+        }
+        } catch (error) {
+            console.error('Failed to load meetings:', error);
+    async function createDummyMeeting() {
+        try {
+            // First get event types to use one for the dummy meeting
+            const eventTypes = await window.api.getEventTypes();
+            if (eventTypes.length === 0) {
+                alert('Please create an event type first');
+                return;
+            }
 
-        // Initialize default
-        updateDuration(durationSlider.value);
-
-        // Listen for change
-        durationSlider.addEventListener("input", (e) => {
-            updateDuration(e.target.value);
-        });
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                title: "Team Huddle",
+                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
+                timezone: "UTC",
+            const description = document.getElementById("feedback").value.trim();
+            
+            if (!eventName) {
+                alert('Please enter an event name');
+                return;
+            }
+            
+            // Store in session for next steps
+            const eventData = {
+                name: eventName,
+                category: category,
+                duration: duration,
+                description: description
+            };
+            
+            sessionStorage.setItem('newEventData', JSON.stringify(eventData));
+            window.location.href = 'selectDate.html';
+        }
     </script>
-</body>
 
-</html>
+    async function createDummyMeeting() {
+        try {
+            // First get event types to use one for the dummy meeting
+            const eventTypes = await window.api.getEventTypes();
+            if (eventTypes.length === 0) {
+                alert('Please create an event type first');
+                return;
+            }
+
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                title: "Team Huddle",
+                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
+                timezone: "UTC",
+            const eventTypes = eventTypesResponse.results || eventTypesResponse;
+            
+            if (eventTypes.length === 0) {
+                alert('Please create an event type first');
+                return;
+            }
+
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(10, 0, 0, 0);
+
+            const dummyMeetingData = {
+                event_type: eventTypes[0].id,
+                title: "Team Huddle",
+                start_time: tomorrow.toISOString(),
+                timezone: "UTC",
+                invitee_name: "John Doe",
+                invitee_email: "john.doe@example.com"
+            };
+
+            await window.api.createMeeting(dummyMeetingData);
+            loadUpcomingMeetings(); // Refresh the list
+        } catch (error) {
+            console.error('Failed to create dummy meeting:', error);
+            alert('Failed to create meeting: ' + error.message);
+        }
+    }
+
+    function renderMeetings(meetings) {
+    }
+
+    function renderMeetings() {
+        const meetings = getMeetings();
+        const allLis = meetingList.querySelectorAll("li");
+        // Remove existing dynamic meetings (keep first 4 static ones)
+        allLis.forEach((li, index) => {
+            if (index >= 4) li.remove();
+        });
+
+        meetings.forEach((meeting) => {
+            const li = document.createElement("li");
+            const meetingTime = formatDateTime(meeting.start_time);
+            li.innerHTML = `
+                <div class="icon"><i class="fas fa-clock"></i></div>
+                <div class="info"><strong>${meeting.title}</strong><br /><span>${meetingTime}</span></div>
+                <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+            `;
+            meetingList.appendChild(li);
+        });
+    }
+
+    function updateStatsCards(stats) {
+        const cards = document.querySelectorAll('.stats .card');
+        if (cards.length >= 4) {
+            cards[0].textContent = stats.confirmed_meetings || 0;
+            cards[1].textContent = stats.pending_meetings || 0;
+            cards[2].textContent = stats.cancelled_meetings || 0;
+            cards[3].textContent = stats.todays_meetings || 0;
+        }
+    }
+});
