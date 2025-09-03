@@ -1,221 +1,102 @@
-/* ========================= PROFILE DROPDOWN ============================ */
-const profileBtn = document.getElementById("profileBtn");
-const dropdownMenu = document.getElementById("dropdownMenu");
+<!DOCTYPE html>
+<html lang="en">
 
-if (profileBtn && dropdownMenu) {
-    profileBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        dropdownMenu.style.display =
-            dropdownMenu.style.display === "flex" ? "none" : "flex";
-    });
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MeetXccelerate - My Events</title>
 
-    document.addEventListener("click", () => {
-        dropdownMenu.style.display = "none";
-    });
-}
+    <!-- CSS File -->
+    <link rel="stylesheet" href="Style.css" />
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
 
-/* ====================== DASHBOARD INITIALIZATION ===================== */
-document.addEventListener("DOMContentLoaded", function () {
-    // Load dashboard data
-    loadDashboardData();
-    loadUpcomingMeetings();
-    loadRecentActivity();
-    loadUserGreeting();
-    
-    // Set up event listeners
-    const addMeetingBtn = document.getElementById("addMeetingBtn");
-    if (addMeetingBtn) {
-        addMeetingBtn.addEventListener("click", createDummyMeeting);
-    }
-    
-    // Load event details if on event page
-    await loadEventDetails();
-});
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
 
-async function loadDashboardData() {
-    try {
-        const stats = await window.api.getDashboardStats();
-        updateStatsCards(stats);
-    } catch (error) {
-        console.error('Failed to load dashboard stats:', error);
-    }
-}
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-right">
+            <button class="icon-btn">
+                <i class="fa-regular fa-circle-question"></i>
+            </button>
+            <img src="./images/profile.jpg" alt="User" class="profile-pic">
+        </div>
+    </header>
 
-async function loadUpcomingMeetings() {
-    try {
-        const meetings = await window.api.getUpcomingMeetings();
-        renderMeetings(meetings);
-    } catch (error) {
-        console.error('Failed to load meetings:', error);
-    }
-}
+    <main class="container">
+        <h1 id="event-name">My Events</h1>
+        <p>Your created event types and their details</p>
 
-async function loadRecentActivity() {
-    try {
-        const meetings = await window.api.getMeetings();
-        renderRecentActivity(meetings);
-    } catch (error) {
-        console.error('Failed to load recent activity:', error);
-    }
-}
-
-async function loadUserGreeting() {
-    try {
-        const profile = await window.api.getProfile();
-        const greeting = document.getElementById('greeting');
-        if (greeting && profile.first_name) {
-            const hour = new Date().getHours();
-            let timeGreeting = 'Good Morning';
-            if (hour >= 12 && hour < 17) timeGreeting = 'Good Afternoon';
-            else if (hour >= 17) timeGreeting = 'Good Evening';
+        <div class="event-summary">
+            <img id="event-banner" src="" alt="Event Banner" style="display: none;">
             
-            greeting.textContent = `${timeGreeting}, ${profile.first_name}`;
-        }
-    } catch (error) {
-        console.error('Failed to load user profile:', error);
-    }
-}
+            <h3 id="event-title">Loading...</h3>
+            <p id="event-duration">Duration: Loading...</p>
+            
+            <section id="summary">
+                <h3>Availability</h3>
+                <p id="opac">Loading availability information...</p>
+            </section>
+        </div>
 
-async function loadEventDetails() {
-    try {
-        const eventTypes = await window.api.getEventTypes();
-        if (eventTypes.length > 0) {
-            const latestEvent = eventTypes[0]; // Show the most recent event
-            renderEventDetails(latestEvent);
-        } else {
-            showNoEventsMessage();
-        }
-    } catch (error) {
-        console.error('Failed to load event details:', error);
-        showNoEventsMessage();
-    }
-}
+        <button class="next" onclick="window.location.href='../project/event-types.html'">View All Event Types</button>
+    </main>
 
-function renderEventDetails(event) {
-    const eventNameEl = document.getElementById('event-name');
-    const eventTitleEl = document.getElementById('event-title');
-    const eventDurationEl = document.getElementById('event-duration');
-    
-    if (eventNameEl) eventNameEl.textContent = event.name;
-    if (eventTitleEl) eventTitleEl.textContent = event.name;
-    if (eventDurationEl) eventDurationEl.textContent = `${event.duration} minutes`;
-    
-    if (event.image) {
-        const banner = document.getElementById('event-banner');
-        if (banner) {
-            banner.src = event.image;
-            banner.style.display = 'block';
-        }
-    }
-    
-    // Load availability summary
-    loadAvailabilitySummary();
-}
+    <!-- JavaScript -->
+    <script src="../project/js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadEventDetails();
+        });
 
-async function loadAvailabilitySummary() {
-    try {
-        const availability = await window.api.getAvailabilityOverview();
-        const summary = `Available ${availability.weekly_availability?.length || 0} time slots per week`;
-        const summaryEl = document.getElementById('summary');
-        if (summaryEl) summaryEl.textContent = summary;
-    } catch (error) {
-        const summaryEl = document.getElementById('summary');
-        if (summaryEl) summaryEl.textContent = 'Availability not configured';
-    }
-}
-
-function showNoEventsMessage() {
-    const eventNameEl = document.getElementById('event-name');
-    const eventTitleEl = document.getElementById('event-title');
-    const eventDurationEl = document.getElementById('event-duration');
-    const summaryEl = document.getElementById('summary');
-    
-    if (eventNameEl) eventNameEl.textContent = 'No Events';
-    if (eventTitleEl) eventTitleEl.textContent = 'No Events Created';
-    if (eventDurationEl) eventDurationEl.textContent = 'N/A';
-    if (summaryEl) summaryEl.textContent = 'Create an event type to get started';
-}
-
-async function createDummyMeeting() {
-    try {
-        const eventTypesResponse = await window.api.getEventTypes();
-        const eventTypes = eventTypesResponse.results || eventTypesResponse;
-        
-        if (eventTypes.length === 0) {
-            alert('Please create an event type first');
-            return;
+        async function loadEventDetails() {
+            try {
+                const eventTypes = await window.api.getEventTypes();
+                if (eventTypes.length > 0) {
+                    const latestEvent = eventTypes[0];
+                    renderEventDetails(latestEvent);
+                } else {
+                    showNoEventsMessage();
+                }
+            } catch (error) {
+                console.error('Failed to load event details:', error);
+                showNoEventsMessage();
+            }
         }
 
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        tomorrow.setHours(10, 0, 0, 0);
+        function renderEventDetails(event) {
+            document.getElementById('event-name').textContent = event.name;
+            document.getElementById('event-title').textContent = event.name;
+            document.getElementById('event-duration').textContent = `Duration: ${event.duration} minutes`;
+            
+            if (event.image) {
+                const banner = document.getElementById('event-banner');
+                banner.src = event.image;
+                banner.style.display = 'block';
+            }
+            
+            loadAvailabilitySummary();
+        }
 
-        const dummyMeetingData = {
-            event_type: eventTypes[0].id,
-            title: "Team Huddle",
-            start_time: tomorrow.toISOString(),
-            timezone: "UTC",
-            invitee_name: "John Doe",
-            invitee_email: "john.doe@example.com"
-        };
+        async function loadAvailabilitySummary() {
+            try {
+                const availability = await window.api.getAvailabilityOverview();
+                const summary = `Available ${availability.weekly_availability?.length || 0} time slots per week`;
+                document.getElementById('opac').textContent = summary;
+            } catch (error) {
+                document.getElementById('opac').textContent = 'Availability not configured';
+            }
+        }
 
-        await window.api.createMeeting(dummyMeetingData);
-        loadUpcomingMeetings(); // Refresh the list
-    } catch (error) {
-        console.error('Failed to create dummy meeting:', error);
-        alert('Failed to create meeting: ' + error.message);
-    }
-}
+        function showNoEventsMessage() {
+            document.getElementById('event-name').textContent = 'No Events';
+            document.getElementById('event-title').textContent = 'No Events Created';
+            document.getElementById('event-duration').textContent = 'Duration: N/A';
+            document.getElementById('opac').textContent = 'Create an event type to get started';
+        }
+    </script>
+</body>
 
-function renderMeetings(meetings) {
-    const meetingList = document.querySelector(".meeting-list");
-    if (!meetingList) return;
-
-    // Clear existing dynamic meetings
-    const existingMeetings = meetingList.querySelectorAll("li.dynamic-meeting");
-    existingMeetings.forEach(li => li.remove());
-
-    meetings.forEach((meeting) => {
-        const li = document.createElement("li");
-        li.className = "dynamic-meeting";
-        const meetingTime = formatDateTime(meeting.start_time);
-        li.innerHTML = `
-            <div class="icon"><i class="fas fa-clock"></i></div>
-            <div class="info"><strong>${meeting.title}</strong><br /><span>${meetingTime}</span></div>
-            <div class="arrow"><i class="fas fa-chevron-right"></i></div>
-        `;
-        meetingList.appendChild(li);
-    });
-}
-
-function renderRecentActivity(meetings) {
-    const tbody = document.getElementById('recent-activity-tbody');
-    if (!tbody) return;
-    
-    tbody.innerHTML = '';
-    
-    meetings.slice(0, 5).forEach(meeting => {
-        const row = document.createElement('tr');
-        const meetingTime = formatDateTime(meeting.start_time);
-        
-        row.innerHTML = `
-            <td>${meeting.title}</td>
-            <td>${meeting.invitee_name}</td>
-            <td>${meetingTime}</td>
-            <td>${meeting.location_type === 'zoom' ? 'Virtual' : meeting.location_type}</td>
-            <td>${meeting.description || 'No notes'}</td>
-        `;
-        
-        tbody.appendChild(row);
-    });
-}
-
-function updateStatsCards(stats) {
-    const cards = document.querySelectorAll('.stats .card');
-    if (cards.length >= 4) {
-        cards[0].textContent = stats.confirmed_meetings || 0;
-        cards[1].textContent = stats.pending_meetings || 0;
-        cards[2].textContent = stats.cancelled_meetings || 0;
-        cards[3].textContent = stats.todays_meetings || 0;
-    }
-}
+</html>
