@@ -14,167 +14,145 @@ if (profileBtn && dropdownMenu) {
     });
 }
 
-/* ====================== DASHBOARD MEETINGS SECTION ===================== */
+/* ====================== DASHBOARD INITIALIZATION ===================== */
 document.addEventListener("DOMContentLoaded", function () {
-    const meetingList = document.querySelector(".meeting-list");
-    const clearMeetingsBtn = document.getElementById("clearMeetingsBtn");
+    // Load dashboard data
+    loadDashboardData();
+    loadUpcomingMeetings();
+    loadRecentActivity();
+    loadUserGreeting();
+    
+    // Set up event listeners
     const addMeetingBtn = document.getElementById("addMeetingBtn");
-
-    if (meetingList) {
-        // Load real meetings from API
-        loadUpcomingMeetings();
-        
-        // Load real meetings from API
-        loadUpcomingMeetings();
-        
-        if (addMeetingBtn) {
-            addMeetingBtn.addEventListener("click", () => {
-                // Create a dummy meeting via API
-                createDummyMeeting();
-            });
-        }
-    async function loadUpcomingMeetings() {
-                // Clear meetings would require backend implementation
-    async function loadUpcomingMeetings() {
-        try {
-            const meetings = await window.api.getUpcomingMeetings();
-            renderMeetings(meetings);
-        } catch (error) {
-            console.error('Failed to load meetings:', error);
-        }
-        } catch (error) {
-            console.error('Failed to load meetings:', error);
-    async function createDummyMeeting() {
-        try {
-            // First get event types to use one for the dummy meeting
-            const eventTypes = await window.api.getEventTypes();
-            if (eventTypes.length === 0) {
-                alert('Please create an event type first');
-                return;
-            }
-
-            const dummyMeetingData = {
-                event_type: eventTypes[0].id,
-                title: "Team Huddle",
-                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
-                timezone: "UTC",
-            renderRecentActivity(meetings);
-        } catch (error) {
-            console.error('Failed to load recent activity:', error);
-        }
-    }
-
-    async function loadUserGreeting() {
-        try {
-            const profile = await window.api.getProfile();
-            const greeting = document.getElementById('greeting');
-            if (greeting && profile.first_name) {
-                const hour = new Date().getHours();
-                let timeGreeting = 'Good Morning';
-                if (hour >= 12 && hour < 17) timeGreeting = 'Good Afternoon';
-                else if (hour >= 17) timeGreeting = 'Good Evening';
-                
-                greeting.textContent = `${timeGreeting}, ${profile.first_name}`;
-            }
-        } catch (error) {
-            console.error('Failed to load user profile:', error);
-        }
-    }
-
-    function renderRecentActivity(meetings) {
-        const tbody = document.getElementById('recent-activity-tbody');
-        if (!tbody) return;
-        
-        tbody.innerHTML = '';
-        
-        meetings.forEach(meeting => {
-            const row = document.createElement('tr');
-            const meetingTime = formatDateTime(meeting.start_time);
-            
-            row.innerHTML = `
-                <td>${meeting.title}</td>
-                <td>${meeting.invitee_name}</td>
-                <td>${meetingTime}</td>
-                <td>${meeting.location_type === 'zoom' ? 'Virtual' : meeting.location_type}</td>
-                <td>${meeting.description || 'No notes'}</td>
-            `;
-            
-            tbody.appendChild(row);
-        });
-    }
-
-    async function createDummyMeeting() {
-        try {
-            // First get event types to use one for the dummy meeting
-            const eventTypes = await window.api.getEventTypes();
-            if (eventTypes.length === 0) {
-                alert('Please create an event type first');
-                return;
-            }
-
-            const dummyMeetingData = {
-                event_type: eventTypes[0].id,
-                title: "Team Huddle",
-                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
-                timezone: "UTC",
-            const eventTypes = eventTypesResponse.results || eventTypesResponse;
-            
-            if (eventTypes.length === 0) {
-                alert('Please create an event type first');
-                return;
-            }
-
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            tomorrow.setHours(10, 0, 0, 0);
-
-            const dummyMeetingData = {
-                event_type: eventTypes[0].id,
-                title: "Team Huddle",
-                start_time: tomorrow.toISOString(),
-                timezone: "UTC",
-                invitee_name: "John Doe",
-                invitee_email: "john.doe@example.com"
-            };
-
-            await window.api.createMeeting(dummyMeetingData);
-            loadUpcomingMeetings(); // Refresh the list
-        } catch (error) {
-            console.error('Failed to create dummy meeting:', error);
-            alert('Failed to create meeting: ' + error.message);
-        }
-    }
-
-    function renderMeetings(meetings) {
-    }
-
-    function renderMeetings() {
-        const meetings = getMeetings();
-        const allLis = meetingList.querySelectorAll("li");
-        // Remove existing dynamic meetings (keep first 4 static ones)
-        allLis.forEach((li, index) => {
-            if (index >= 4) li.remove();
-        });
-
-        meetings.forEach((meeting) => {
-            const li = document.createElement("li");
-            const meetingTime = formatDateTime(meeting.start_time);
-            li.innerHTML = `
-                <div class="icon"><i class="fas fa-clock"></i></div>
-                <div class="info"><strong>${meeting.title}</strong><br /><span>${meetingTime}</span></div>
-                <div class="arrow"><i class="fas fa-chevron-right"></i></div>
-            `;
-            meetingList.appendChild(li);
-        });
-    }
-
-    function updateStatsCards(stats) {
-        const cards = document.querySelectorAll('.stats .card');
-        if (cards.length >= 4) {
-            cards[0].textContent = stats.confirmed_meetings || 0;
-            cards[1].textContent = stats.pending_meetings || 0;
-            cards[2].textContent = stats.cancelled_meetings || 0;
-            cards[3].textContent = stats.todays_meetings || 0;
-        }
+    if (addMeetingBtn) {
+        addMeetingBtn.addEventListener("click", createDummyMeeting);
     }
 });
+
+async function loadDashboardData() {
+    try {
+        const stats = await window.api.getDashboardStats();
+        updateStatsCards(stats);
+    } catch (error) {
+        console.error('Failed to load dashboard stats:', error);
+    }
+}
+
+async function loadUpcomingMeetings() {
+    try {
+        const meetings = await window.api.getUpcomingMeetings();
+        renderMeetings(meetings);
+    } catch (error) {
+        console.error('Failed to load meetings:', error);
+    }
+}
+
+async function loadRecentActivity() {
+    try {
+        const meetings = await window.api.getMeetings();
+        renderRecentActivity(meetings);
+    } catch (error) {
+        console.error('Failed to load recent activity:', error);
+    }
+}
+
+async function loadUserGreeting() {
+    try {
+        const profile = await window.api.getProfile();
+        const greeting = document.getElementById('greeting');
+        if (greeting && profile.first_name) {
+            const hour = new Date().getHours();
+            let timeGreeting = 'Good Morning';
+            if (hour >= 12 && hour < 17) timeGreeting = 'Good Afternoon';
+            else if (hour >= 17) timeGreeting = 'Good Evening';
+            
+            greeting.textContent = `${timeGreeting}, ${profile.first_name}`;
+        }
+    } catch (error) {
+        console.error('Failed to load user profile:', error);
+    }
+}
+
+async function createDummyMeeting() {
+    try {
+        const eventTypesResponse = await window.api.getEventTypes();
+        const eventTypes = eventTypesResponse.results || eventTypesResponse;
+        
+        if (eventTypes.length === 0) {
+            alert('Please create an event type first');
+            return;
+        }
+
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setHours(10, 0, 0, 0);
+
+        const dummyMeetingData = {
+            event_type: eventTypes[0].id,
+            title: "Team Huddle",
+            start_time: tomorrow.toISOString(),
+            timezone: "UTC",
+            invitee_name: "John Doe",
+            invitee_email: "john.doe@example.com"
+        };
+
+        await window.api.createMeeting(dummyMeetingData);
+        loadUpcomingMeetings(); // Refresh the list
+    } catch (error) {
+        console.error('Failed to create dummy meeting:', error);
+        alert('Failed to create meeting: ' + error.message);
+    }
+}
+
+function renderMeetings(meetings) {
+    const meetingList = document.querySelector(".meeting-list");
+    if (!meetingList) return;
+
+    // Clear existing dynamic meetings
+    const existingMeetings = meetingList.querySelectorAll("li.dynamic-meeting");
+    existingMeetings.forEach(li => li.remove());
+
+    meetings.forEach((meeting) => {
+        const li = document.createElement("li");
+        li.className = "dynamic-meeting";
+        const meetingTime = formatDateTime(meeting.start_time);
+        li.innerHTML = `
+            <div class="icon"><i class="fas fa-clock"></i></div>
+            <div class="info"><strong>${meeting.title}</strong><br /><span>${meetingTime}</span></div>
+            <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+        `;
+        meetingList.appendChild(li);
+    });
+}
+
+function renderRecentActivity(meetings) {
+    const tbody = document.getElementById('recent-activity-tbody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    meetings.slice(0, 5).forEach(meeting => {
+        const row = document.createElement('tr');
+        const meetingTime = formatDateTime(meeting.start_time);
+        
+        row.innerHTML = `
+            <td>${meeting.title}</td>
+            <td>${meeting.invitee_name}</td>
+            <td>${meetingTime}</td>
+            <td>${meeting.location_type === 'zoom' ? 'Virtual' : meeting.location_type}</td>
+            <td>${meeting.description || 'No notes'}</td>
+        `;
+        
+        tbody.appendChild(row);
+    });
+}
+
+function updateStatsCards(stats) {
+    const cards = document.querySelectorAll('.stats .card');
+    if (cards.length >= 4) {
+        cards[0].textContent = stats.confirmed_meetings || 0;
+        cards[1].textContent = stats.pending_meetings || 0;
+        cards[2].textContent = stats.cancelled_meetings || 0;
+        cards[3].textContent = stats.todays_meetings || 0;
+    }
+}

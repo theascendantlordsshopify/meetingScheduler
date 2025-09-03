@@ -14,123 +14,166 @@ if (profileBtn && dropdownMenu) {
     });
 }
 
-/* ====================== DASHBOARD MEETINGS SECTION ===================== */
+/* ====================== CONTACTS FUNCTIONALITY ===================== */
 document.addEventListener("DOMContentLoaded", function () {
-    const meetingList = document.querySelector(".meeting-list");
-    const clearMeetingsBtn = document.getElementById("clearMeetingsBtn");
-    const addMeetingBtn = document.getElementById("addMeetingBtn");
+    loadContacts();
+    setupContactModal();
+    setupFilters();
+    setupSearch();
+});
 
-    if (meetingList) {
-        // Load real meetings from API
-        loadUpcomingMeetings();
+async function loadContacts() {
+    try {
+        const contactsResponse = await window.api.getContacts();
+        const contacts = contactsResponse.results || contactsResponse;
+        renderContacts(contacts);
+    } catch (error) {
+        console.error('Failed to load contacts:', error);
+        showError('Failed to load contacts');
+    }
+}
+
+function renderContacts(contacts) {
+    const tbody = document.getElementById('cm-contacts-table-body');
+    if (!tbody) return;
+
+    tbody.innerHTML = '';
+
+    contacts.forEach(contact => {
+        const row = document.createElement('tr');
         
-        // Load real meetings from API
-        loadUpcomingMeetings();
+        // Format tags
+        const tagsHtml = contact.tags.map(tag => 
+            `<span class="cm-tag-style cm-tag-${tag.name.toLowerCase()}">${tag.name}</span>`
+        ).join(' ');
         
-        if (addMeetingBtn) {
-            addMeetingBtn.addEventListener("click", () => {
-                // Create a dummy meeting via API
-                createDummyMeeting();
-            });
-        }
-    async function loadUpcomingMeetings() {
-                // Clear meetings would require backend implementation
-    async function loadUpcomingMeetings() {
-        try {
-            const meetings = await window.api.getUpcomingMeetings();
-            renderMeetings(meetings);
-        } catch (error) {
-            console.error('Failed to load meetings:', error);
-        }
-        } catch (error) {
-            console.error('Failed to load meetings:', error);
-    async function createDummyMeeting() {
-        try {
-            // First get event types to use one for the dummy meeting
-            const eventTypes = await window.api.getEventTypes();
-            if (eventTypes.length === 0) {
-                alert('Please create an event type first');
-                return;
-            }
+        // Format upcoming meeting
+        const upcomingMeeting = contact.upcoming_meeting 
+            ? `${contact.upcoming_meeting.title} - ${formatDate(contact.upcoming_meeting.date)}`
+            : 'None';
+        
+        // Format last meeting date
+        const lastMeetingDate = contact.last_meeting_date 
+            ? formatDate(contact.last_meeting_date)
+            : 'Never';
 
-            const dummyMeetingData = {
-                event_type: eventTypes[0].id,
-                title: "Team Huddle",
-                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
-                timezone: "UTC",
+        row.innerHTML = `
+            <td>${contact.full_name}</td>
+            <td>${contact.email}</td>
+            <td>${contact.company || 'N/A'}</td>
+            <td>${tagsHtml}</td>
+            <td>${upcomingMeeting}</td>
+            <td>${lastMeetingDate}</td>
+            <td>${contact.total_meetings}</td>
+        `;
+        
+        tbody.appendChild(row);
+    });
+}
 
-    async function createDummyMeeting() {
-        try {
-            // First get event types to use one for the dummy meeting
-            const eventTypes = await window.api.getEventTypes();
-            if (eventTypes.length === 0) {
-                alert('Please create an event type first');
-                return;
-            }
+function setupContactModal() {
+    const modal = document.getElementById("cm-new-contact-modal");
+    const openBtn = document.getElementById("cm-new-contact-btn");
+    const closeBtn = modal?.querySelector(".cm-close-button");
+    const cancelBtn = document.getElementById("cm-cancel-new-contact");
+    const form = document.getElementById("cm-new-contact-form");
 
-            const dummyMeetingData = {
-                event_type: eventTypes[0].id,
-                title: "Team Huddle",
-                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
-                timezone: "UTC",
-            const eventTypes = eventTypesResponse.results || eventTypesResponse;
+    if (openBtn) {
+        openBtn.addEventListener("click", () => {
+            modal.style.display = "flex";
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+    }
+
+    if (cancelBtn) {
+        cancelBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+    }
+
+    if (form) {
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
             
-            if (eventTypes.length === 0) {
-                alert('Please create an event type first');
-                return;
-            }
-
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            tomorrow.setHours(10, 0, 0, 0);
-
-            const dummyMeetingData = {
-                event_type: eventTypes[0].id,
-                title: "Team Huddle",
-                start_time: tomorrow.toISOString(),
-                timezone: "UTC",
-                invitee_name: "John Doe",
-                invitee_email: "john.doe@example.com"
+            const formData = new FormData(form);
+            const contactData = {
+                first_name: formData.get('name').split(' ')[0] || '',
+                last_name: formData.get('name').split(' ').slice(1).join(' ') || '',
+                email: formData.get('email'),
+                company: formData.get('organization'),
+                tag_ids: Array.from(formData.getAll('tags')).map(Number)
             };
 
-            await window.api.createMeeting(dummyMeetingData);
-            loadUpcomingMeetings(); // Refresh the list
-        } catch (error) {
-            console.error('Failed to create dummy meeting:', error);
-            alert('Failed to create meeting: ' + error.message);
-        }
-    }
-
-    function renderMeetings(meetings) {
-    }
-
-    function renderMeetings() {
-        const meetings = getMeetings();
-        const allLis = meetingList.querySelectorAll("li");
-        // Remove existing dynamic meetings (keep first 4 static ones)
-        allLis.forEach((li, index) => {
-            if (index >= 4) li.remove();
+            try {
+                await window.api.createContact(contactData);
+                modal.style.display = "none";
+                form.reset();
+                await loadContacts();
+                showSuccess('Contact created successfully!');
+            } catch (error) {
+                console.error('Failed to create contact:', error);
+                showError('Failed to create contact: ' + error.message);
+            }
         });
+    }
+}
 
-        meetings.forEach((meeting) => {
-            const li = document.createElement("li");
-            const meetingTime = formatDateTime(meeting.start_time);
-            li.innerHTML = `
-                <div class="icon"><i class="fas fa-clock"></i></div>
-                <div class="info"><strong>${meeting.title}</strong><br /><span>${meetingTime}</span></div>
-                <div class="arrow"><i class="fas fa-chevron-right"></i></div>
-            `;
-            meetingList.appendChild(li);
+function setupFilters() {
+    // Tag filter
+    const tagFilterBtn = document.getElementById("cm-tag-filter-btn");
+    const tagDropdown = document.getElementById("cm-tag-dropdown");
+
+    if (tagFilterBtn) {
+        tagFilterBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            tagDropdown.classList.toggle("show");
         });
     }
 
-    function updateStatsCards(stats) {
-        const cards = document.querySelectorAll('.stats .card');
-        if (cards.length >= 4) {
-            cards[0].textContent = stats.confirmed_meetings || 0;
-            cards[1].textContent = stats.pending_meetings || 0;
-            cards[2].textContent = stats.cancelled_meetings || 0;
-            cards[3].textContent = stats.todays_meetings || 0;
-        }
+    // Organization filter
+    const orgFilterBtn = document.getElementById("cm-organization-filter-btn");
+    const orgDropdown = document.getElementById("cm-organization-dropdown");
+
+    if (orgFilterBtn) {
+        orgFilterBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            orgDropdown.classList.toggle("show");
+        });
     }
-});
+
+    // Close dropdowns when clicking outside
+    document.addEventListener("click", () => {
+        document.querySelectorAll('.cm-dropdown-content').forEach(dropdown => {
+            dropdown.classList.remove("show");
+        });
+    });
+}
+
+function setupSearch() {
+    const searchInput = document.getElementById("cm-search-input");
+    
+    if (searchInput) {
+        let searchTimeout;
+        searchInput.addEventListener("input", (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(async () => {
+                const query = e.target.value.trim();
+                if (query) {
+                    try {
+                        const results = await window.api.searchContacts(query);
+                        renderContacts(results.contacts);
+                    } catch (error) {
+                        console.error('Search failed:', error);
+                    }
+                } else {
+                    loadContacts();
+                }
+            }, 300);
+        });
+    }
+}

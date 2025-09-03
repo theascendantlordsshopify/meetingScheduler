@@ -14,50 +14,95 @@ if (profileBtn && dropdownMenu) {
     });
 }
 
-/* ====================== DASHBOARD MEETINGS SECTION ===================== */
+/* ====================== INTEGRATIONS FUNCTIONALITY ===================== */
 document.addEventListener("DOMContentLoaded", function () {
-    const meetingList = document.querySelector(".meeting-list");
-    const clearMeetingsBtn = document.getElementById("clearMeetingsBtn");
-    const addMeetingBtn = document.getElementById("addMeetingBtn");
+    loadIntegrations();
+    setupSearch();
+    setupTags();
+});
 
-    if (meetingList) {
-        // Load real meetings from API
-        loadUpcomingMeetings();
+async function loadIntegrations() {
+    try {
+        const [providers, userIntegrations, recentlyConnected] = await Promise.all([
+            window.api.getIntegrationProviders(),
+            window.api.getUserIntegrations(),
+            window.api.getRecentlyConnected()
+        ]);
         
-        // Load real meetings from API
-        loadUpcomingMeetings();
-        
-        if (addMeetingBtn) {
-            addMeetingBtn.addEventListener("click", () => {
-                // Create a dummy meeting via API
-                createDummyMeeting();
-            });
-        }
-    async function loadUpcomingMeetings() {
-                // Clear meetings would require backend implementation
-    async function loadUpcomingMeetings() {
-        try {
-            const meetings = await window.api.getUpcomingMeetings();
-            renderMeetings(meetings);
-        } catch (error) {
-            console.error('Failed to load meetings:', error);
-        }
-        } catch (error) {
-            console.error('Failed to load meetings:', error);
-    async function createDummyMeeting() {
-        try {
-            // First get event types to use one for the dummy meeting
-            const eventTypes = await window.api.getEventTypes();
-            if (eventTypes.length === 0) {
-                alert('Please create an event type first');
-                return;
-            }
+        renderRecentlyConnected(recentlyConnected.integrations);
+        renderAllIntegrations(providers, userIntegrations);
+    } catch (error) {
+        console.error('Failed to load integrations:', error);
+        showError('Failed to load integrations');
+    }
+}
 
-            const dummyMeetingData = {
-                event_type: eventTypes[0].id,
-                title: "Team Huddle",
-                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
-                timezone: "UTC",
+function renderRecentlyConnected(recentIntegrations) {
+    const recentSection = document.querySelector('h2:contains("Recently Connected")');
+    if (!recentSection) return;
+
+    const cardsContainer = recentSection.nextElementSibling;
+    if (!cardsContainer) return;
+
+    cardsContainer.innerHTML = '';
+
+    recentIntegrations.forEach(integration => {
+        const card = createIntegrationCard(integration, true);
+        cardsContainer.appendChild(card);
+    });
+}
+
+function renderAllIntegrations(providers, userIntegrations) {
+    const allSection = document.querySelector('h2:contains("All Integrations")');
+    if (!allSection) return;
+
+    let cardsContainer = allSection.nextElementSibling;
+    
+    // Clear all existing cards containers after "All Integrations"
+    while (cardsContainer && cardsContainer.classList.contains('cards')) {
+        const nextContainer = cardsContainer.nextElementSibling;
+        cardsContainer.innerHTML = '';
+        cardsContainer = nextContainer;
+    }
+
+    // Group providers by category and render
+    const categories = groupProvidersByCategory(providers);
+    let currentContainer = allSection.nextElementSibling;
+
+    Object.entries(categories).forEach(([category, categoryProviders]) => {
+        if (!currentContainer) {
+            currentContainer = document.createElement('div');
+            currentContainer.className = 'cards';
+            allSection.parentNode.insertBefore(currentContainer, allSection.nextSibling);
+        }
+
+        categoryProviders.forEach(provider => {
+            const card = createProviderCard(provider, userIntegrations);
+            currentContainer.appendChild(card);
+        });
+
+        currentContainer = currentContainer.nextElementSibling;
+    });
+}
+
+function groupProvidersByCategory(providers) {
+    return providers.reduce((groups, provider) => {
+        const category = provider.category || 'other';
+        if (!groups[category]) {
+            groups[category] = [];
+        }
+        groups[category].push(provider);
+        return groups;
+    }, {});
+}
+
+function createIntegrationCard(integration, isConnected = false) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    
+    card.innerHTML = `
+        <img src="${integration.provider_logo || './logos/default.png'}" alt="${integration.provider_name}">
+        <h3>${integration.provider_name}</h3>
         <p>${getProviderDescription(integration.provider_category)}</p>
     `;
     
@@ -111,78 +156,61 @@ async function connectIntegration(providerId) {
     }
 }
 
-    async function createDummyMeeting() {
-        try {
-            // First get event types to use one for the dummy meeting
-            const eventTypes = await window.api.getEventTypes();
-            if (eventTypes.length === 0) {
-                alert('Please create an event type first');
-                return;
-            }
-
-            const dummyMeetingData = {
-                event_type: eventTypes[0].id,
-                title: "Team Huddle",
-                start_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
-                timezone: "UTC",
-            const eventTypes = eventTypesResponse.results || eventTypesResponse;
-            
-            if (eventTypes.length === 0) {
-                alert('Please create an event type first');
-                return;
-            }
-
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            tomorrow.setHours(10, 0, 0, 0);
-
-            const dummyMeetingData = {
-                event_type: eventTypes[0].id,
-                title: "Team Huddle",
-                start_time: tomorrow.toISOString(),
-                timezone: "UTC",
-                invitee_name: "John Doe",
-                invitee_email: "john.doe@example.com"
-            };
-
-            await window.api.createMeeting(dummyMeetingData);
-            loadUpcomingMeetings(); // Refresh the list
-        } catch (error) {
-            console.error('Failed to create dummy meeting:', error);
-            alert('Failed to create meeting: ' + error.message);
-        }
-    }
-
-    function renderMeetings(meetings) {
-    }
-
-    function renderMeetings() {
-        const meetings = getMeetings();
-        const allLis = meetingList.querySelectorAll("li");
-        // Remove existing dynamic meetings (keep first 4 static ones)
-        allLis.forEach((li, index) => {
-            if (index >= 4) li.remove();
-        });
-
-        meetings.forEach((meeting) => {
-            const li = document.createElement("li");
-            const meetingTime = formatDateTime(meeting.start_time);
-            li.innerHTML = `
-                <div class="icon"><i class="fas fa-clock"></i></div>
-                <div class="info"><strong>${meeting.title}</strong><br /><span>${meetingTime}</span></div>
-                <div class="arrow"><i class="fas fa-chevron-right"></i></div>
-            `;
-            meetingList.appendChild(li);
+function setupSearch() {
+    const searchBar = document.querySelector('.search-bar');
+    
+    if (searchBar) {
+        searchBar.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            filterIntegrationCards(query);
         });
     }
+}
 
-    function updateStatsCards(stats) {
-        const cards = document.querySelectorAll('.stats .card');
-        if (cards.length >= 4) {
-            cards[0].textContent = stats.confirmed_meetings || 0;
-            cards[1].textContent = stats.pending_meetings || 0;
-            cards[2].textContent = stats.cancelled_meetings || 0;
-            cards[3].textContent = stats.todays_meetings || 0;
+function filterIntegrationCards(query) {
+    const cards = document.querySelectorAll('.card');
+    
+    cards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const description = card.querySelector('p').textContent.toLowerCase();
+        
+        if (title.includes(query) || description.includes(query) || query === '') {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
         }
-    }
-});
+    });
+}
+
+function setupTags() {
+    const tags = document.querySelectorAll('.tag');
+    
+    tags.forEach(tag => {
+        tag.addEventListener('click', () => {
+            const category = tag.textContent.toLowerCase();
+            filterByCategory(category);
+        });
+    });
+}
+
+function filterByCategory(category) {
+    const cards = document.querySelectorAll('.card');
+    
+    cards.forEach(card => {
+        const description = card.querySelector('p').textContent.toLowerCase();
+        
+        if (category === 'calendar' && description.includes('calendar')) {
+            card.style.display = 'block';
+        } else if (category === 'video conferencing' && description.includes('video')) {
+            card.style.display = 'block';
+        } else if (category === 'crm' && description.includes('customer')) {
+            card.style.display = 'block';
+        } else if (category === 'productivity' && (description.includes('organize') || description.includes('manage'))) {
+            card.style.display = 'block';
+        } else if (category === 'automation' && description.includes('automate')) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
