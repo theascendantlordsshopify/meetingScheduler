@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MeetXccelerate - Event Types</title>
+
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="event-types.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+</head>
+
+<body>
+
+  <!-- ======================== TOPBAR ======================== -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h2 class="logo">MeetXccelerate</h2>
+    </div>
+    <div class="header-right">
+      <nav class="nav-links">
+        <a href="./home.html">Home</a>
+        <a href="./features.html">Features</a>
+        <a href="./pricing.html">Pricing</a>
+        <a href="./resources.html">Resources</a>
+      </nav>
+
+      <div class="header-buttons">
+        <button class="action-btn">Book New Meeting</button>
+        <button class="action-btn">Invite Team</button>
+
+        <!-- Profile Dropdown -->
+        <div class="profile-dropdown-wrapper">
+          <button class="profile-button" id="profileBtn">
+            <img src="images/profile.jpg" alt="user's Profile" class="profile-img" />
+          </button>
+          <div class="profile-dropdown" id="dropdownMenu">
+            <a href="#">Settings</a>
+            <a href="#">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================== DASHBOARD LAYOUT ======================== -->
+  <div class="dashboard-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="user-profile">
+        <img src="images/profile.jpg" alt="user's Profile" />
+        <div class="user-info">
+          <strong class="username">
+            <h3>A Qudoos</h3>
+          </strong>
+          <small class="welcome-text">Welcome back!</small>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html" class="sidebar-link"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+          <li><a href="./event-types.html" class="sidebar-link active-link"><i class="fas fa-calendar-alt"></i> Event
+              Types</a></li>
+          <li><a href="./meetings.html" class="sidebar-link"><i class="fas fa-handshake"></i> Meetings</a></li>
+          <li><a href="./availibility.html" class="sidebar-link"><i class="fas fa-clock"></i> Availability</a></li>
+          <li><a href="./contacts.html" class="sidebar-link"><i class="fas fa-address-book"></i> Contacts</a></li>
+          <li><a href="./workflows.html" class="sidebar-link"><i class="fas fa-project-diagram"></i> Workflows</a></li>
+          <li><a href="./integrations.html" class="sidebar-link"><i class="fas fa-plug"></i> Integrations</a></li>
+          <li><a href="./notifications.html" class="sidebar-link"><i class="fas fa-bell"></i> Notifications</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+      <div class="event-types-page">
+
+        <!-- Page Heading -->
+        <div class="event-types-header">
+          <h1>Event Types</h1>
+          <p>Create and manage your event types</p>
+        </div>
+
+        <!-- Search / Filters / View / Sort -->
+        <div class="event-types-controls">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search event types" />
+          </div>
+
+          <div class="filt-sort">
+            <div class="filters">
+              <select>
+                <option>Category</option>
+              </select>
+              <select>
+                <option>Duration</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="sort-options">
+            <button class="sort-btn">Name</button>
+            <button class="sort-btn">Bookings</button>
+          </div>
+        </div>
+
+        <div class="view-toggle">
+          <button class="toggle-btn active">Grid</button>
+          <button class="toggle-btn">List</button>
+        </div>
+
+        <!-- Cards Grid/List View -->
+        <div class="event-cards">
+          <div class="event-card">
+            <img src="images/event1.jpg" alt="Handshake" />
+            <div class="event-content">
+              <h4 class="event-title">1:1</h4>
+              <p class="event-duration">30 min</p>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <img src="images/event2.jpg" alt="Team Emojis" />
+            <div class="event-content">
+              <h4 class="event-title">Team</h4>
+              <p class="event-duration">60 min</p>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <img src="images/event3.jpg" alt="Phone Emoji" />
+            <div class="event-content">
+              <h4 class="event-title">Client Call</h4>
+              <p class="event-duration">45 min</p>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <img src="images/event4.jpg" alt="Poster Frame" />
+            <div class="event-content">
+              <h4 class="event-title">1:1</h4>
+              <p class="event-duration">30 min</p>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <img src="images/event5.jpg" alt="Stacked Emojis" />
+            <div class="event-content">
+              <h4 class="event-title">Team</h4>
+              <p class="event-duration">60 min</p>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <img src="images/event6.jpg" alt="New Event Icon" />
+            <div class="event-content">
+              <h4 class="event-title">Strategy Meet</h4>
+              <p class="event-duration">90 min</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add New Event Button -->
+        <button class="add-event-type-btn" id="openModalBtn">
+          <i class="fas fa-plus"></i> New Event Type
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal for Adding New Event -->
+  <div class="new-event-modal" id="newEventModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h3>Create New Event Type</h3>
+      <input type="text" id="eventTitle" placeholder="Event Title" />
+      <input type="text" id="eventDuration" placeholder="Duration (e.g. 15 min)" />
+      <input type="file" id="eventImage" accept="image/*" />
+      <button id="createEventBtn">Create</button>
+    </div>
+  </div>
+
+  <script src="event-types.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

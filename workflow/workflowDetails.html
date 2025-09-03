@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MeetXccelerate - Workflow details</title>
+
+    <!-- CSS File -->
+    <link rel="stylesheet" href="workflowDetails.css" />
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-right">
+            <button class="icon-btn">
+                <i class="fa-regular fa-circle-question" id="help"></i>
+            </button>
+            <img src="./images/profile.jpg" alt="User" class="profile-pic">
+        </div>
+    </header>
+
+    <main class="container">
+  <!-- Sidebar -->
+        <div class="section">
+            <h2>Triggers</h2>
+            <div class="list">
+                <div class="list-item">
+                    <i class="fa-solid fa-calendar"></i>
+                    <div>
+                        <p>Meeting Created</p>
+                        <small>Triggered when a new meeting is scheduled</small>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <i class="fa-solid fa-x"></i>
+                    <div>
+                        <p>Meeting Canceled</p>
+                        <small>Triggered when a meeting is canceled</small>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <i class="fa-solid fa-calendar"></i>
+                    <div>
+                        <p>Meeting rescheduled</p>
+                        <small>Triggered when a meeting is rescheduled</small>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Actions</h2>
+            <div class="list">
+                <div class="list-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <p>Send Email</p>
+                        <small>Send an email notification</small>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <i class="fa-solid fa-calendar-week"></i>
+                    <div>
+                        <p>Add to Calendar</p>
+                        <small>Add the meeting to a calendar</small>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <i class="fa-brands fa-slack"></i>
+                    <div>
+                        <p>Slack Notification</p>
+                        <small>Send a notification via Slack</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+  <!-- Workflow Builder -->
+  <div class="workflow-builder">
+    <h2>Workflow Builder</h2>
+    <p>Drag and drop triggers and actions to build your workflow</p>
+    <div class="dropzone" id="dropzone">
+      Drag and drop triggers and actions here
+    </div>
+    <div class="actions">
+      <button class="btn cancel">Cancel</button>
+      <button class="btn save">Save Workflow</button>
+    </div>
+  </div>
+
+  <!-- Node Properties -->
+  <div class="properties">
+    <h3>Node Properties</h3>
+    <label>Node Name</label>
+    <input type="text" placeholder="Enter node name">
+
+    <label>Event Type</label>
+    <input type="text" placeholder="Enter event type">
+
+    <label>User</label>
+    <input type="text" placeholder="Enter user">
+
+    <label>Team</label>
+    <input type="text" placeholder="Enter team">
+  </div>
+    </main>
+
+  <script>
+    const items = document.querySelectorAll('.item');
+    const dropzone = document.getElementById('dropzone');
+
+    items.forEach(item => {
+      item.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', item.innerText);
+      });
+    });
+
+    dropzone.addEventListener('dragover', e => {
+      e.preventDefault();
+    });
+
+    dropzone.addEventListener('drop', e => {
+      e.preventDefault();
+      const data = e.dataTransfer.getData('text/plain');
+      const newItem = document.createElement('div');
+      newItem.className = 'workflow-item';
+      newItem.textContent = data;
+      dropzone.appendChild(newItem);
+    });
+  </script>
+</body>
+
+</html>

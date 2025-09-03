@@ -1,0 +1,112 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f6fafa;
+  margin: 0;
+  padding: 10px;
+  color: #333;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+/* Search bar */
+.search-bar {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: none;
+  background-color: #d8ecec;
+  font-size: 14px;
+  outline: none;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  border-bottom: 1px solid #aaa;
+  padding-bottom: 8px;
+}
+
+.tab {
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  padding-bottom: 5px;
+}
+
+.tab.active {
+  border-bottom: 2px solid #007b83;
+  font-weight: bold;
+}
+
+/* Mark all as read */
+.mark-read {
+  margin: 8px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mark-read button {
+  background-color: #d8ecec;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.75;
+}
+
+.mark-read button:hover {
+  opacity: 1;
+  font-weight: 500;
+}
+
+/* Notifications list */
+.notification-card {
+  display: flex;
+  align-items: flex-start;
+  background: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 8px;
+}
+
+.icon {
+  background: #d8ecec;
+  border-radius: 6px;
+  padding: 8px;
+  margin-right: 12px;
+  font-size: 20px;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.time {
+  font-size: 12px;
+  color: #777;
+  margin: 2px 0 6px;
+}
+
+.desc {
+  font-size: 13px;
+  color: #444;
+}
+
+.menu {
+  cursor: pointer;
+  font-size: 20px;
+  color: #888;
+  margin-left: 10px;
+}

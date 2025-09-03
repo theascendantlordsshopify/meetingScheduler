@@ -1,0 +1,375 @@
+/* =================== EVENT TYPES PAGE =================== */
+
+.event-types-page {
+  padding: 10px 5px;
+}
+
+/* === Header === */
+.event-types-header h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+  color: #1F2937;
+}
+
+.event-types-header p {
+  font-size: 14px;
+  color: #6B7280;
+  margin-bottom: 20px;
+}
+
+/* === Controls === */
+.event-types-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.search-bar {
+  width: 100%;
+  position: relative;
+}
+
+.search-bar i {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: #9CA3AF;
+  font-size: 16px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 12px 15px 12px 40px;
+  border: 1px solid #1D9CA4;
+  border-radius: 18px;
+  font-size: 14px;
+  background-color: #F3F4F6;
+  color: black;
+  position: relative;
+  z-index: 1;
+}
+
+.search-bar input:focus {
+  border-color: #1D9CA4;
+  outline: none;
+}
+
+/* === Dropdown Filters === */
+.filters {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.filters select {
+  appearance: auto;
+  padding: 10px 14px;
+  font-size: 14px;
+  border: 1px solid #1D9CA4;
+  border-radius: 16px;
+  background-color: #F3F4F6;
+  color: black;
+  width: 120px;
+  height: 42px;
+  cursor: pointer;
+}
+
+/* === View Toggle Pill === */
+.view-toggle {
+  width: 100%;
+  background-color: #F3F4F6;
+  border: 1px solid #1D9CA4;
+  border-radius: 15px;
+  display: flex;
+  position: relative;
+  height: 42px;
+  overflow: hidden;
+}
+
+.toggle-btn {
+  flex: 1;
+  z-index: 2;
+  font-size: 14px;
+  background: none;
+  border: none;
+  outline: none;
+  color: #1D9CA4;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.toggle-btn.active {
+  color: black;
+}
+
+.view-toggle::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  width: 50%;
+  left: 2px;
+  background-color: #ffffff;
+  border-radius: 13px;
+  transition: left 0.3s ease;
+  z-index: 1;
+}
+
+.view-toggle::before {
+  left: 2px;
+}
+
+.view-toggle.list-active::before {
+  left: 50%;
+}
+
+
+/* === Sort Buttons === */
+.sort-options {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.sort-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #F3F4F6;
+  color: black;
+  border: 1px solid #E5E7EB;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.sort-btn:hover {
+  background-color: #E5E7EB;
+}
+
+/* === Event Cards === */
+.event-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.event-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-3px);
+}
+
+.event-card img {
+  width: 135px;
+  height: 135px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  border-radius: 12px;
+  background-color: #F0F9FF;
+  padding: 0px;
+}
+
+.event-card h4 {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #1F2937;
+}
+
+.event-card p {
+  font-size: 13px;
+  color: #6B7280;
+}
+
+/* === Add Event Button === */
+.add-event-type-btn {
+  margin-top: 30px;
+  float: right;
+  background-color: #1D9CA4;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-event-type-btn i {
+  margin-right: 6px;
+}
+
+.add-event-type-btn:hover {
+  background-color: #3BA7A3;
+}
+
+
+
+
+/* === List View === */
+.event-cards.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.event-cards.list-view .event-card {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+  width: 100%;
+}
+
+.event-cards.list-view .event-card:hover {
+  transform: translateY(-2px);
+}
+
+.event-cards.list-view .event-card img {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  margin-right: 20px;
+  border-radius: 12px;
+  background-color: #F0F9FF;
+}
+
+.event-cards.list-view .event-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.event-cards.list-view .event-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1F2937;
+  margin-bottom: 6px;
+}
+
+.event-cards.list-view .event-duration {
+  font-size: 13px;
+  color: #6B7280;
+}
+
+
+.event-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.event-card {
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid #E5E7EB;
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-3px);
+}
+
+.event-wrapper img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 12px;
+  background-color: #F0F9FF;
+  padding: 0px;
+}
+
+.event-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.event-title {
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  color: #1F2937;
+}
+
+.event-duration {
+  font-size: 13px;
+  color: #6B7280;
+}
+
+
+
+/* === New Event Modal === */
+.new-event-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-content input {
+  padding: 10px 14px;
+  font-size: 14px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+}
+
+.modal-content button {
+  padding: 10px;
+  background-color: #1D9CA4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background-color: #3BA7A3;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 20px;
+  cursor: pointer;
+}

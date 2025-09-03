@@ -1,0 +1,269 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  border: 2px dashed #007bff;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 10px;
+  color: #333;
+}
+
+/* Header */
+.main-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1px;
+  border-bottom: 1px solid #e5e5e5;
+  background: #fff;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.75;
+}
+
+.icon-btn:hover {
+  opacity: 1;
+}
+
+.profile-pic {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Container */
+.container {
+  width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.container h1 {
+  text-align: start;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.container p {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: start;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  width: 150px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  text-align: start;
+  transition: transform 0.2s;
+  margin: 10px 0px;
+}
+
+.empt-card {
+  opacity: 0;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.card h3 {
+  font-size: 14px;
+  margin: 0;
+  color: #111827;
+}
+
+.card p {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 5px;
+}
+
+.manage-setting {
+  background-color: #25a165;
+  border: none;
+  border-radius: 20px;
+  height: 2.5rem;
+  width: 8rem;
+  font-weight: 400;
+  color: #333;
+  text-align: center;
+}
+
+.connected {
+  text-align: center;
+}
+
+/* Search Bar */
+.search-container {
+  display: flex;
+  align-items: center;
+  background: #f5f7f8;
+  border-radius: 10px;
+  padding: 10px 15px;
+  max-width: 900px;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+}
+
+.search-container .close-btn {
+  cursor: pointer;
+  font-size: 18px;
+  color: #888;
+}
+
+/* Integration Card */
+.integration-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 15px 20px;
+  max-width: 900px;
+  margin: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.integration-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.integration-info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+}
+
+.integration-text h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.integration-text p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.connect-btn {
+  background: #f5f7f8;
+  border: none;
+  padding: 7px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.connect-btn:hover {
+  background: #e0e0e0;
+}
+
+/* Permission page */
+    .permission {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 6px;
+      background: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      color: #374151;
+    }
+
+    .text h4 {
+      margin: 0;
+      font-size: 16px;
+      color: #111;
+    }
+
+    .text p {
+      margin: 2px 0 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      padding: 8px 18px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn-cancel {
+      background: #f3f4f6;
+      color: #111;
+    }
+
+    .btn-allow {
+      background: #065f46;
+      color: #fff;
+    }
+
+    .btn-allow:hover {
+      background: #064e3b;
+    }
+
+    .btn-cancel:hover {
+      background: #e5e7eb;
+    }

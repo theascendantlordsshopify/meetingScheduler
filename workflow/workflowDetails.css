@@ -1,0 +1,238 @@
+/* ---------- Global ---------- */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* ---------- Header ---------- */
+.main-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 6px 16px;
+  border-bottom: 1px solid #e5e5e5;
+  background: #fff;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #036666;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.icon-btn:hover {
+  opacity: 1;
+}
+
+.profile-pic {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ---------- Layout ---------- */
+main {
+  display: grid;
+  grid-template-columns: 280px 1fr 280px;
+  gap: 20px;
+  padding: 20px;
+  background: #f8fdfc;
+}
+
+.section,
+.workflow-builder,
+.properties {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #036666;
+  margin-bottom: 12px;
+}
+
+/* ---------- List Items (Triggers & Actions) ---------- */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #f9fafb;
+  cursor: grab;
+  transition: 0.2s ease;
+}
+
+.list-item:hover {
+  background: #f0fdfa;
+}
+
+.list-item i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ecfdf5;
+  color: #036666;
+  font-size: 1.2rem;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.list-item p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.list-item small {
+  margin-top: 2px;
+  font-size: 0.8rem;
+  color: #036666;
+}
+
+/* ---------- Workflow Builder ---------- */
+.workflow-builder h2 {
+  margin-bottom: 5px;
+}
+
+.workflow-builder p {
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.dropzone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  color: #888;
+  background: #f8fdfc;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  min-height: 180px;
+}
+
+.dropzone.dragover {
+  background: #ecfdf5;
+  border-color: #036666;
+  color: #333;
+}
+
+.workflow-item {
+  margin: 10px 0;
+  padding: 10px 14px;
+  background: #ecfdf5;
+  border-radius: 8px;
+  font-weight: 500;
+  text-align: left;
+  color: #036666;
+}
+
+/* Buttons */
+.actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.actions button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.actions .cancel {
+  background: #e5e7eb;
+  color: #333;
+}
+
+.actions .cancel:hover {
+  background: #d1d5db;
+}
+
+.actions .save {
+  background: #036666;
+  color: #fff;
+}
+
+.actions .save:hover {
+  background: #024f4f;
+}
+
+/* ---------- Node Properties ---------- */
+.properties h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #036666;
+}
+
+.properties label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.properties input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.properties input:focus {
+  border-color: #036666;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 340px 1fr 260px; /* ⬅️ Left wider, center balanced, right smaller */
+  gap: 24px;
+  padding: 20px;
+  background: #f8fdfc;
+}
+
+
+/* ---------- Responsive ---------- */
+@media (max-width: 992px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}

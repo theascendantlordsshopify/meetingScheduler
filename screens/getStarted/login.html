@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MeetXccelerate - Login and Signup</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+</head>
+<body>
+
+<div class="auth-card">
+  
+  <div class="tab-header">
+    <button class="tab active" id="login-tab">Login</button>
+    <button class="tab" id="signup-tab">Signup</button>
+  </div>
+
+  <div class="tab-content" id="login-content">
+    <form class="login-form">
+      <label for="email"><h4>Email</h4></label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required class="input-email"/>
+
+      <label for="login-password"><h4>Password</h4></label>
+      <div class="input-wrapper">
+        <input type="password" id="login-password" name="login-password" placeholder="Enter your password" required />
+        <i class="fas fa-eye" id="toggle-login-password"></i>
+      </div>
+
+      <button type="submit">Login</button>
+
+      <p class="switch-link">
+        Don't have an account?
+        <a href="#" id="switch-to-signup">Signup</a>
+      </p>
+    </form>
+
+    <div class="google-signin">
+      <div class="divider"><span>or</span></div>
+      <button type="button" class="google-btn">
+        <i class="fab fa-google color-google-icon"></i> Continue with Google
+      </button>
+    </div>
+  </div>
+
+  <div class="tab-content" id="signup-content" style="display: none">
+    <form class="signup-form">
+      <label for="signup-email"><h4>Email</h4></label>
+      <input type="email" id="signup-email" name="signup-email" placeholder="Enter your email" required class="input-email"/>
+
+      <label for="signup-password"><h4>Password</h4></label>
+      <div class="input-wrapper">
+        <input type="password" id="signup-password" name="signup-password" placeholder="Enter password" required />
+        <i class="fas fa-eye" id="toggle-signup-password"></i>
+      </div>
+
+      <label for="confirm-password"><h4>Confirm</h4></label>
+      <div class="input-wrapper">
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm password" required />
+        <i class="fas fa-eye" id="toggle-confirm-password"></i>
+      </div>
+
+      <button type="submit">Signup</button>
+
+      <p class="switch-link">
+        Already have an account?
+        <a href="#" id="switch-to-login">Login</a>
+      </p>
+    </form>
+
+    <div class="google-signin">
+      <div class="divider"><span>or</span></div>
+      <button type="button" class="google-btn">
+        <i class="fab fa-google color-google-icon"></i> Continue with Google
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js" defer></script>
+
+</body>
+</html>

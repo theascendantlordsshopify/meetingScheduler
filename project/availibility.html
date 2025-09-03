@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MeetXccelerate - Availability</title>
+
+  <!-- CSS File -->
+  <link rel="stylesheet" href="availibility.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+  <!-- === TOPBAR === -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h2 class="logo">MeetXccelerate</h2>
+    </div>
+
+    <div class="header-right">
+      <nav class="nav-links">
+        <a href="./home.html">Home</a>
+        <a href="./features.html">Features</a>
+        <a href="./pricing.html">Pricing</a>
+        <a href="./resources.html">Resources</a>
+      </nav>
+
+      <div class="header-buttons">
+        <button class="action-btn">Book New Meeting</button>
+        <button class="action-btn">Invite Team</button>
+
+        <!-- Profile Dropdown Start -->
+        <div class="profile-dropdown-wrapper">
+          <button class="profile-button" id="profileBtn">
+            <img src="images/profile.jpg" alt="user's Profile" class="profile-img" />
+          </button>
+          <div class="profile-dropdown" id="dropdownMenu">
+            <a href="#">Settings</a>
+            <a href="#">Logout</a>
+          </div>
+        </div>
+        <!-- Profile Dropdown End -->
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================== -->
+  <!-- === AVAILIBILITY LAYOUT === -->
+
+  <div class="availibility-layout">
+
+    <!-- === SIDEBAR === -->
+    <aside class="sidebar">
+      <div class="user-profile">
+        <img src="images/profile.jpg" alt="user's Profile" />
+        <div class="user-info">
+          <strong class="username">
+            <h3>A Qudoos</h3>
+          </strong>
+          <small class="welcome-text">Welcome back!</small>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html" class="sidebar-link"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+          <li><a href="./event-types.html" class="sidebar-link"><i class="fas fa-calendar-alt"></i> Event Types</a></li>
+          <li><a href="./meetings.html" class="sidebar-link"><i class="fas fa-handshake"></i> Meetings</a></li>
+          <li><a href="./availibility.html" class="sidebar-link  active-link"><i
+                class="fas fa-clock"></i>Availability</a></li>
+          <li><a href="./contacts.html" class="sidebar-link"><i class="fas fa-address-book"></i> Contacts</a></li>
+          <li><a href="./workflows.html" class="sidebar-link"><i class="fas fa-project-diagram"></i> Workflows</a></li>
+          <li><a href="./integrations.html" class="sidebar-link"><i class="fas fa-plug"></i> Integrations</a></li>
+          <li><a href="./notifications.html" class="sidebar-link"><i class="fas fa-bell"></i> Notifications</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- === MAIN CONTENT (AVAILABILITY PAGE) === -->
+    <main class="main-wrapper">
+      <div class="availability-container">
+        <div class="container">
+          <h1>Availability</h1>
+          <p class="welcome-text">
+            Set your default availability for all your meetings. You can customize availability for each meeting type.
+          </p>
+
+          <!-- Global Weekly Repeat Toggle -->
+          <div class="header">
+            <h2>Weekly repeat</h2>
+            <label class="toggle">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div id="weeks-wrapper"></div>
+          <button class="remove-week-btn"></button>
+
+          <!-- Add Week Button (only shows if no weeks exist) -->
+          <button id="add-week-btn" class="add-week-btn" style="display:none;" onclick="addWeek()">+ Add a week</button>
+
+
+          <!-- Buffer Time -->
+          <div class="container">
+            <section class="section">
+              <h2>Buffer time</h2>
+              <label for="before-event"></label>
+              <select id="before-event">
+                <option value="">Before event</option>
+                <option value="5">5 min</option>
+                <option value="10">10 min</option>
+                <option value="15">15 min</option>
+                <option value="30">30 min</option>
+                <option value="60">1 hour</option>
+              </select>
+
+              <label for="after-event"></label>
+              <select id="after-event">
+                <option value="">After event</option>
+                <option value="5">5 min</option>
+                <option value="10">10 min</option>
+                <option value="15">15 min</option>
+                <option value="30">30 min</option>
+                <option value="60">1 hour</option>
+              </select>
+            </section>
+
+            <!-- Lunch Break -->
+            <section class="section">
+              <h2>Lunch break</h2>
+              <label for="lunch-start">Start time</label>
+              <input type="time" id="lunch-start" />
+
+              <label for="lunch-end">End time</label>
+              <input type="time" id="lunch-end" />
+            </section>
+          </div>
+
+          <!-- Time Zone Section -->
+          <div class="container">
+            <div class="section">
+              <h2>Time zone</h2>
+              <label for="timezone">Time zone</label>
+              <select id="timezone">
+                <option value="">Loading time zones...</option>
+              </select>
+              <p class="hint" id="timezoneHint">Auto-detecting your time zone. You can override this setting.</p>
+            </div>
+
+            <!-- One-Time Exceptions Section -->
+            <div class="section">
+              <h3>One-time exceptions</h3>
+              <div id="exceptions-container">
+                <div class="exception-row">
+                  <input type="date">
+                  <input type="checkbox" id="unavailable-0">
+                  <label for="unavailable-0">Mark as unavailable</label>
+                </div>
+              </div>
+              <button id="add-exception">+ Add a new day</button>
+            </div>
+
+            <!-- Calendar Sync -->
+            <div class="container">
+              <div class="section">
+                <h2>Sync calendar</h2>
+                <div class="calendar-option">
+                  <label>
+                    <input type="checkbox" id="google-calendar" checked>
+                    Google Calendar
+                  </label>
+                  <span class="status" id="google-status">Connected</span>
+                </div>
+                <div class="calendar-option">
+                  <label>
+                    <input type="checkbox" id="outlook-calendar" checked>
+                    Outlook Calendar
+                  </label>
+                  <span class="status" id="outlook-status">Connected</span>
+                </div>
+              </div>
+
+              <button id="save-publish">Save & Publish</button>
+
+            </div>
+
+            <!-- Popup for disconnected calendar -->
+              <div id="popup" style="display:none; position:fixed; top:40%; left:50%; transform:translate(-50%, -50%);
+              background:#fff; padding:20px; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.2);">
+              <p id="popup-text" style="margin-bottom:15px;">Your calendar is not connected.</p>
+              <button onclick="closePopup()"
+                style="padding:8px 16px; background:#4e7f89; color:white; border:none; border-radius:4px;">OK</button>
+            </div>
+
+          </div>
+    </main>
+  </div>
+
+  <!-- === External JavaScript === -->
+  <script src="availibility.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeetXccelerate - Contacts Management</title>
+
+  <!-- CSS File -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="contacts.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+  <!-- === TOPBAR === -->
+  <header class="topbar cm-header-bar">
+    <div class="topbar-left">
+      <h2 class="logo">MeetXccelerate</h2>
+    </div>
+
+    <div class="header-right">
+      <nav class="nav-links">
+        <a href="./home.html">Home</a>
+        <a href="./features.html">Features</a>
+        <a href="./pricing.html">Pricing</a>
+        <a href="./resources.html">Resources</a>
+      </nav>
+
+      <div class="header-buttons">
+        <div class="cm-header-buttons flex items-center">
+          <button class="action-btn" id="cm-new-contact-btn">
+            <i class="fas fa-plus mr-2"></i>New Contact
+          </button>
+          <button class="action-btn" id="cm-add-to-group-btn">Add to Group</button>
+        </div>
+
+        <!-- Profile Dropdown Start -->
+        <div class="profile-dropdown-wrapper">
+          <button class="profile-button" id="profileBtn">
+            <img src="images/profile.jpg" alt="user's Profile" class="profile-img" />
+          </button>
+          <div class="profile-dropdown" id="dropdownMenu">
+            <a href="#">Settings</a>
+            <a href="#">Logout</a>
+          </div>
+        </div>
+        <!-- Profile Dropdown End -->
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================== -->
+  <!-- === CONTACTS LAYOUT === -->
+
+  <div class="contacts-layout">
+
+    <!-- === SIDEBAR === -->
+    <aside class="sidebar">
+      <div class="user-profile">
+        <img src="images/profile.jpg" alt="user's Profile" />
+        <div class="user-info">
+          <strong class="username">
+            <h3>A Qudoos</h3>
+          </strong>
+          <small class="welcome-text">Welcome back!</small>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html" class="sidebar-link"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+          <li><a href="./event-types.html" class="sidebar-link"><i class="fas fa-calendar-alt"></i> Event Types</a></li>
+          <li><a href="./meetings.html" class="sidebar-link"><i class="fas fa-handshake"></i> Meetings</a></li>
+          <li><a href="./availibility.html" class="sidebar-link"><i class="fas fa-clock"></i>Availability</a></li>
+          <li><a href="./contacts.html" class="sidebar-link active-link"><i class="fas fa-address-book"></i>
+              Contacts</a></li>
+          <li><a href="./workflows.html" class="sidebar-link"><i class="fas fa-project-diagram"></i> Workflows</a></li>
+          <li><a href="./integrations.html" class="sidebar-link"><i class="fas fa-plug"></i> Integrations</a></li>
+          <li><a href="./notifications.html" class="sidebar-link"><i class="fas fa-bell"></i> Notifications</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- === MAIN CONTENT === -->
+    <main class="main-wrapper">
+      <div class="cm-app-container">
+        <!-- Main Content Area -->
+        <section class="cm-main-content">
+
+          <!-- Contacts Section -->
+          <section class="cm-contacts-section flex-grow flex flex-col">
+            <div class="cm-contacts-section-header">
+              <h1 class="text-3xl font-bold text-gray-900 mb-2">Contacts</h1>
+              <p class="text-gray-500">
+                Manage your contacts and their information.
+              </p>
+            </div>
+
+            <!-- Search and Filter Bar -->
+            <div class="cm-search-filter-bar">
+              <div class="cm-search-input-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="cm-search-input" class="cm-search-input" placeholder="Search contacts" />
+              </div>
+
+              <!-- New div to wrap filter dropdowns -->
+              <div class="cm-filters-row">
+                <!-- Tag Filter Dropdown -->
+                <div class="cm-filter-dropdown">
+                  <button class="cm-filter-button" id="cm-tag-filter-btn">
+                    Tag <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <div class="cm-dropdown-content" id="cm-tag-dropdown">
+                    <label><input type="checkbox" value="Client" class="cm-tag-checkbox" />
+                      Client</label>
+                    <label><input type="checkbox" value="Partner" class="cm-tag-checkbox" />
+                      Partner</label>
+                    <label><input type="checkbox" value="Internal" class="cm-tag-checkbox" />
+                      Internal</label>
+                  </div>
+                </div>
+
+                <!-- Organization Filter Dropdown -->
+                <div class="cm-filter-dropdown">
+                  <button class="cm-filter-button" id="cm-organization-filter-btn">
+                    Organization <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <div class="cm-dropdown-content" id="cm-organization-dropdown">
+                    <!-- Options will be dynamically populated -->
+                  </div>
+                </div>
+
+                <!-- Recent Activity Filter Dropdown -->
+                <div class="cm-filter-dropdown">
+                  <button class="cm-filter-button" id="cm-recent-activity-filter-btn">
+                    Recent Activity <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <div class="cm-dropdown-content" id="cm-recent-activity-dropdown">
+                    <label><input type="checkbox" value="Last 7 Days" class="cm-activity-checkbox" />
+                      Last 7 Days</label>
+                    <label><input type="checkbox" value="Last 30 Days" class="cm-activity-checkbox" />
+                      Last 30 Days</label>
+                    <label><input type="checkbox" value="Last 90 Days" class="cm-activity-checkbox" />
+                      Last 90 Days</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contacts Table -->
+            <div class="cm-contacts-table-container">
+              <table class="cm-contacts-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Organization</th>
+                    <th>Tags</th>
+                    <th>Upcoming Meeting</th>
+                    <th>Last Meeting Date</th>
+                    <th>Total Meetings</th>
+                  </tr>
+                </thead>
+                <tbody id="cm-contacts-table-body">
+                  <!-- Contact data will be dynamically populated here -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <!-- New Contact Modal -->
+        <div id="cm-new-contact-modal" class="cm-modal">
+          <div class="cm-modal-content">
+            <span class="cm-close-button">&times;</span>
+            <h2>Add New Contact</h2>
+            <form id="cm-new-contact-form">
+              <div class="cm-form-group">
+                <label for="cm-contact-name">Name</label>
+                <input type="text" id="cm-contact-name" name="name" required />
+                <div class="cm-error-message" id="cm-name-error">
+                  Name is required.
+                </div>
+              </div>
+              <div class="cm-form-group">
+                <label for="cm-contact-email">Email</label>
+                <input type="email" id="cm-contact-email" name="email" required />
+                <div class="cm-error-message" id="cm-email-error">
+                  Please enter a valid email.
+                </div>
+              </div>
+              <div class="cm-form-group">
+                <label for="cm-contact-organization">Organization</label>
+                <input type="text" id="cm-contact-organization" name="organization" />
+              </div>
+              <div class="cm-form-group">
+                <label for="cm-contact-tags">Tags</label>
+                <select id="cm-contact-tags" name="tags" multiple>
+                  <option value="Client">Client</option>
+                  <option value="Partner">Partner</option>
+                  <option value="Internal">Internal</option>
+                </select>
+                <div class="cm-error-message" id="cm-tags-error">
+                  Please select at least one tag.
+                </div>
+              </div>
+              <div class="cm-modal-buttons">
+                <button type="button" class="cm-cancel-button" id="cm-cancel-new-contact">
+                  Cancel
+                </button>
+                <button type="submit" class="cm-submit-button">
+                  Add Contact
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Add to Group Modal (Simple Placeholder) -->
+        <div id="cm-add-to-group-modal" class="cm-modal">
+          <div class="cm-modal-content">
+            <span class="cm-close-button">&times;</span>
+            <h2>Add Selected Contacts to Group</h2>
+            <p>This is a placeholder for the "Add to Group" functionality.</p>
+            <div class="cm-form-group">
+              <label for="cm-group-name">Group Name</label>
+              <input type="text" id="cm-group-name" name="group-name" required />
+            </div>
+            <div class="cm-modal-buttons">
+              <button type="button" class="cm-cancel-button" id="cm-cancel-add-to-group">
+                Cancel
+              </button>
+              <button type="submit" class="cm-submit-button">Add to Group</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="contacts.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

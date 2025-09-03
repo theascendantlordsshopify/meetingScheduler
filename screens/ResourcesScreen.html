@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeetXccelerate - Resources</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+</head>
+<body class="p-8">
+
+    <!-- Navigation Bar -->
+    <nav class="flex justify-between items-center py-2 px-6 bg-white shadow-md rounded-full fixed top-4 left-1/2 -translate-x-1/2 w-11/12 max-w-7xl">
+        <div class="text-xl font-bold">
+            <a href="#">MeetXcelerate</a>
+        </div>
+        <div class="hidden md:flex items-center space-x-6">
+            <a href="./HomeScreen.html" class="text-gray-600 hover:text-blue-500 transition-colors duration-200">Home</a>
+            <a href="./FeatureScreen.html" class="text-gray-600 hover:text-blue-500 transition-colors duration-200">Feature</a>
+            <a href="PricingScreen.html" class="text-gray-600 hover:text-blue-500 transition-colors duration-200">Pricing</a>
+            <a href="./ResourcesScreen.html" class="text-blue-500 font-semibold px-3 py-1 rounded-full bg-black transition-colors duration-200">Resources</a>
+            <a href="./getStarted/login.html" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-full hover:bg-blue-600 transition-colors duration-200">Get Started</a>
+            <a href="./getStarted/login.html" class="border border-blue-500 text-blue-500 font-semibold py-2 px-4 rounded-full hover:bg-blue-50 transition-colors duration-200">Login</a>
+        </div>
+        <div class="md:hidden">
+            <button class="text-gray-600 hover:text-blue-500 focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+    <div class="h-24"></div> <!-- Spacer for fixed header -->
+
+    <!-- Resources Section -->
+    <div class="max-w-6xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <div class=" mb-12">
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Resources</h2>
+            <p class="text-lg text-gray-600">Learn, explore, and get support</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Knowledge Base Card -->
+            <div class="resource-card">
+                <img src="https://placehold.co/400x200/4c51bf/ffffff?text=Knowledge+Base" alt="Knowledge Base" class="resource-image">
+                <div class="p-6">
+                    <h3 class="font-semibold text-lg mb-2">Knowledge Base</h3>
+                    <p class="text-sm text-gray-600">Find answers to common questions and troubleshoot issues.</p>
+                </div>
+            </div>
+            <!-- Documentation Card -->
+            <div class="resource-card">
+                <img src="https://placehold.co/400x200/4c51bf/ffffff?text=Documentation" alt="Documentation" class="resource-image">
+                <div class="p-6">
+                    <h3 class="font-semibold text-lg mb-2">Documentation</h3>
+                    <p class="text-sm text-gray-600">Explore detailed guides and API references for developers.</p>
+                </div>
+            </div>
+            <!-- Learning Center Card -->
+            <div class="resource-card">
+                <img src="https://placehold.co/400x200/4c51bf/ffffff?text=Learning+Center" alt="Learning Center" class="resource-image">
+                <div class="p-6">
+                    <h3 class="font-semibold text-lg mb-2">Learning Center</h3>
+                    <p class="text-sm text-gray-600">Access tutorials, webinars, and courses to master ScheduleEase.</p>
+                </div>
+            </div>
+            <!-- Community & Support Card -->
+            <div class="resource-card">
+                <img src="https://placehold.co/400x200/4c51bf/ffffff?text=Community+and+Support" alt="Community & Support" class="resource-image">
+                <div class="p-6">
+                    <h3 class="font-semibold text-lg mb-2">Community & Support</h3>
+                    <p class="text-sm text-gray-600">Connect with other users and get help from our support team.</p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-12">
+            <a href="#" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">
+                Explore All Resources
+            </a>
+        </div>
+    </div>
+
+   
+ 
+
+</body>
+</html>

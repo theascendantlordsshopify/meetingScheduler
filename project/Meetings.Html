@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MeetXccelerate - Meetings</title>
+
+  <!-- CSS File -->
+  <link rel="stylesheet" href="Meetings.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+  <!-- === TOPBAR === -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h2 class="logo">MeetXccelerate</h2>
+    </div>
+
+    <div class="header-right">
+      <nav class="nav-links">
+        <a href="./home.html">Home</a>
+        <a href="./features.html">Features</a>
+        <a href="./pricing.html">Pricing</a>
+        <a href="./resources.html">Resources</a>
+      </nav>
+
+      <div class="header-buttons">
+        <button class="action-btn">Book New Meeting</button>
+        <button class="action-btn">Invite Team</button>
+
+        <!-- Profile Dropdown Start -->
+        <div class="profile-dropdown-wrapper">
+          <button class="profile-button" id="profileBtn">
+            <img src="images/profile.jpg" alt="user's Profile" class="profile-img" />
+          </button>
+          <div class="profile-dropdown" id="dropdownMenu">
+            <a href="#">Settings</a>
+            <a href="#">Logout</a>
+          </div>
+        </div>
+        <!-- Profile Dropdown End -->
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================== -->
+  <!-- ===== MEETINGS LAYOUT ===== -->
+
+  <div class="meeting-layout">
+
+    <!-- === SIDEBAR === -->
+    <aside class="sidebar">
+      <div class="user-profile">
+        <img src="images/profile.jpg" alt="user's Profile" />
+        <div class="user-info">
+          <strong class="username">
+            <h3>A Qudoos</h3>
+          </strong>
+          <small class="welcome-text">Welcome back!</small>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html" class="sidebar-link"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+          <li><a href="./event-types.html" class="sidebar-link"><i class="fas fa-calendar-alt"></i> Event Types</a></li>
+          <li><a href="./meetings.html" class="sidebar-link active-link"><i class="fas fa-handshake"></i> Meetings</a>
+          </li>
+          <li><a href="./availibility.html" class="sidebar-link"><i class="fas fa-clock"></i> Availability</a></li>
+          <li><a href="./contacts.html" class="sidebar-link"><i class="fas fa-address-book"></i> Contacts</a></li>
+          <li><a href="./workflows.html" class="sidebar-link"><i class="fas fa-project-diagram"></i> Workflows</a></li>
+          <li><a href="./integrations.html" class="sidebar-link"><i class="fas fa-plug"></i> Integrations</a></li>
+          <li><a href="./notifications.html" class="sidebar-link"><i class="fas fa-bell"></i> Notifications</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- === MAIN CONTENT (MEETING PAGE) === -->
+    <main class="main-wrapper">
+      <div class="meeting-container">
+        <div class="container">
+          <!-- Filters -->
+          <div class="filters">
+            <select>
+              <option>Date</option>
+            </select>
+            <select>
+              <option>Meeting Type</option>
+            </select>
+            <select>
+              <option>Status</option>
+            </select>
+            <select>
+              <option>Participant</option>
+            </select>
+          </div>
+
+          <!-- Meeting List -->
+          <div class="meeting-list">
+            <!-- Product Demo -->
+            <div class="meeting">
+              <div class="meeting-left">
+                <div class="icon-circle">🖥</div>
+                <div class="meeting-details">
+                  <div class="meeting-title">Product Demo</div>
+                  <div class="meeting-time">Fri, Jul 12 — 10:00 AM - 10:30 AM</div>
+                </div>
+              </div>
+              <div class="view-button"><a href="#">View</a></div>
+            </div>
+
+            <!-- Design Review -->
+            <div class="meeting">
+              <div class="meeting-left">
+                <div class="icon-circle">📝</div>
+                <div class="meeting-details">
+                  <div class="meeting-title">Design Review</div>
+                  <div class="meeting-time">Mon, Jul 15 — 2:00 PM - 2:30 PM</div>
+                </div>
+              </div>
+              <div class="view-button"><a href="#">View</a></div>
+            </div>
+
+            <!-- 1:1 with Alex -->
+            <div class="meeting">
+              <div class="meeting-left">
+                <div class="icon-circle">👤</div>
+                <div class="meeting-details">
+                  <div class="meeting-title">1:1 with Alex</div>
+                  <div class="meeting-time">Tue, Jul 16 — 11:00 AM - 11:30 AM</div>
+                </div>
+              </div>
+              <div class="view-button"><a href="#">View</a></div>
+            </div>
+
+            <!-- 1:1 with Sarah -->
+            <div class="meeting">
+              <div class="meeting-left">
+                <div class="icon-circle">👤</div>
+                <div class="meeting-details">
+                  <div class="meeting-title">1:1 with Sarah</div>
+                  <div class="meeting-time">Fri, Jul 19 — 3:00 PM - 3:30 PM</div>
+                </div>
+              </div>
+              <div class="view-button"><a href="#">View</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+  <!-- === External JavaScript === -->
+  <script src="Meetings.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

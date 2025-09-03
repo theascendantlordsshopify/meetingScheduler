@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MeetXccelerate - Create an Event</title>
+
+    <!-- CSS File -->
+    <link rel="stylesheet" href="Style.css" />
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-right">
+            <button class="icon-btn">
+                <i class="fa-regular fa-bell"></i>
+            </button>
+            <img src="./images/profile.jpg" alt="User" class="profile-pic">
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <h1>Create an event</h1>
+
+        <!-- Event Name -->
+        <input type="text" id="event-name" placeholder="Event Name" name="eventName">
+
+        <!-- Category -->
+        <select name="category" id="event-category">
+            <option value="">Category</option>
+            <option value="cat1">CategoryNo1</option>
+            <option value="cat2">CategoryNo2</option>
+            <option value="cat3">CategoryNo3</option>
+        </select>
+
+        <!-- Duration -->
+        <div class="duration-wrapper">
+            <label for="duration">Duration</label>
+            <input type="range" id="duration" min="15" max="180" step="15" value="60">
+            <span id="durationValue">1 hour</span>
+        </div>
+
+        <!-- Upload Section -->
+        <section class="upload">
+            <h3>Upload an image or emoji</h3>
+            <p>Images and emojis help people understand your event</p>
+            <button>Upload</button>
+        </section>
+
+        <textarea name="feedback" id="feedback" placeholder=""></textarea>
+
+        <!-- Buttons -->
+        <button class="back">Back</button>
+        <button class="next">Next</button>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // Duration slider
+        const durationSlider = document.getElementById("duration");
+        const durationValue = document.getElementById("durationValue");
+
+        function updateDuration(value) {
+            if (value < 60) {
+                durationValue.textContent = `${value} min`;
+            } else if (value === "60") {
+                durationValue.textContent = "1 hour";
+            } else if (value % 60 === 0) {
+                durationValue.textContent = `${value / 60} hours`;
+            } else {
+                const hours = Math.floor(value / 60);
+                const mins = value % 60;
+                durationValue.textContent = `${hours}h ${mins}m`;
+            }
+        }
+
+        // Initialize default
+        updateDuration(durationSlider.value);
+
+        // Listen for change
+        durationSlider.addEventListener("input", (e) => {
+            updateDuration(e.target.value);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,258 @@
+* ,::before,::after{
+  box-sizing: border-box;
+  margin:0px;
+  padding:0px;
+}
+
+
+body {
+  font-family: Arial, sans-serif;
+  background: #edf2f7;
+  color: #4A4A4A;
+}
+
+.auth-card {
+  max-width: 350px;
+  margin: 80px auto;
+  padding: 30px 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px -10px #0003;
+  text-align: center;
+  color: #4A4A4A;
+}
+
+.tab-header {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.tab {
+  background: none;
+  border: none;
+  font-size: 1.1em;
+  color: #888;
+  padding-bottom: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+
+.tab.active {
+  color: #000;
+  font-weight: 600;
+}
+
+
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: #5A9DAA;
+  border-radius: 2px;
+}
+
+
+
+.tab-content form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+
+
+.tab-content form label {
+  margin-bottom: 4px;
+  text-align: left;
+  font-weight: 500;
+}
+
+
+
+.tab-content form input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 40px 12px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+  color: #4A4A4A;
+  font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+.tab-content form input:focus {
+  border: 1px solid #5A9DAA;
+  background: #ffffff;
+  box-shadow: 0 0 5px 1px #5A9DAA33;
+  outline: none;
+}
+
+.tab-content form button {
+  padding: 12px 20px;
+  background:#5A9DAA;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-content form button:hover {
+  background: #4E8490;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px -5px #0005;
+}
+
+.tab-content .google-signin {
+  text-align: center;
+}
+
+.tab-content .google-signin .divider {
+  margin-bottom: 16px;
+  margin-top:16px;
+  color: #888;
+  font-size: 0.9em;
+  position: relative;
+  text-align: center;
+}
+
+.tab-content .google-signin .divider span {
+  background: #ffffff;
+  padding: 0 10px;
+  color: #666;
+  position: relative;
+  z-index: 1;
+}
+
+.tab-content .google-signin .divider::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: #ccc;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%)
+}
+
+.tab-content .google-signin .google-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 12px 20px;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-content .google-signin .google-btn i {
+  margin-right: 10px;
+  background: linear-gradient(90deg, #4285F4 25%, #DB4437 25% 50%, #F4B400 50% 75%, #0F9D58 75% 100%) text;
+  -webkit-backgroundclip: text;
+  -webkit-text-fill-color: transparent;
+  
+}
+
+.tab-content .google-signin .google-btn:hover {
+  background: #f9f9f9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px -5px #0005;
+}
+
+.switch-link {
+  margin-top: 12px;
+}
+
+.switch-link a {
+  color: rgb(24, 24, 255) ( #0000FF, rgb(0, 0, 255))#1156eb;
+  text-decoration: none;
+}
+
+.switch-link a:hover {
+  text-decoration: underline;
+}
+
+.input-wrapper {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-wrapper input {
+  box-sizing: border-box;
+  padding: 12px 45px 12px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+  color: #4A4A4A;
+  font-size: 1em;
+  align-self: center;
+  display:flex;
+} 
+
+.input-wrapper i {
+  right: 15px;
+  color: #888;
+  cursor: pointer;
+  align-self: center;
+}
+.input-wrapper i:hover {
+  color: #5A9DAA;
+}  
+ 
+@media (max-width: 400px) {
+  .auth-card {
+    width: 90%;
+    margin: 48px auto;
+    padding: 20px;
+  }
+  .input-wrapper i {
+    right: 10px;
+  }
+} 
+ 
+
+.tab-content{
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-wrapper{
+  display:flex;
+  align-items:center;
+  position:relative;
+  margin-bottom:16px;
+}
+
+.input-wrapper input{
+  width:100%;
+}
+
+.input-wrapper i{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+}
+
+.input-email{
+  margin-bottom:16px;
+}

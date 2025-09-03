@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeetXccelerate - Features</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc;
+        }
+    </style>
+</head>
+<body class="p-8">
+
+    <nav class="flex justify-between items-center py-2 px-6 bg-white shadow-md rounded-full fixed top-4 left-1/2 -translate-x-1/2 w-11/12 max-w-7xl">
+        <div class="text-xl font-bold">
+            <a href="#">MeetXcelerate</a>
+        </div>
+        <div class="hidden md:flex items-center space-x-6">
+            <a href="./HomeScreen.html" class="text-gray-600 hover:text-blue-500 transition-colors duration-200">Home</a>
+            <a href="./FeatureScreen.html" class="text-blue-500 font-semibold px-3 py-1 rounded-full bg-black transition-colors duration-200">Feature</a>
+            <a href="./PricingScreen.html" class="text-gray-600 hover:text-blue-500 transition-colors duration-200">Pricing</a>
+            <a href="./ResourcesScreen.html" class="text-gray-600 hover:text-blue-500 transition-colors duration-200">Resources</a>
+            <a href="./getStarted/login.html" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-full hover:bg-blue-600 transition-colors duration-200">Get Started</a>
+            <a href="./getStarted/login.html" class="border border-blue-500 text-blue-500 font-semibold py-2 px-4 rounded-full hover:bg-blue-50 transition-colors duration-200">Login</a>
+        </div>
+        <div class="md:hidden">
+            <button class="text-gray-600 hover:text-blue-500 focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+    <div class="h-24"></div> <!-- Spacer for fixed header -->
+
+
+    <!-- Feature List Section -->
+    <div class="max-w-4xl mx-auto py-8">
+        <ul class="space-y-6">
+            <!-- Smart Scheduling -->
+            <li class="flex items-start bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                <i class="fas fa-calendar-alt text-2xl text-blue-500 mr-4 mt-1"></i>
+                <div>
+                    <h3 class="text-xl font-semibold mb-1">Smart Scheduling</h3>
+                    <p class="text-gray-600">Intelligently find the best meeting times across different time zones and avoid double bookings.</p>
+                </div>
+            </li>
+            <!-- Calendar Integrations -->
+            <li class="flex items-start bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                <i class="fas fa-calendar-check text-2xl text-blue-500 mr-4 mt-1"></i>
+                <div>
+                    <h3 class="text-xl font-semibold mb-1">Calendar Integrations</h3>
+                    <p class="text-gray-600">Seamlessly sync with popular calendar services like Outlook, and iCal to keep your schedule up-to-date.</p>
+                </div>
+            </li>
+            <!-- Automated Reminders -->
+            <li class="flex items-start bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                <i class="fas fa-bell text-2xl text-blue-500 mr-4 mt-1"></i>
+                <div>
+                    <h3 class="text-xl font-semibold mb-1">Automated Reminders</h3>
+                    <p class="text-gray-600">Reduce no-shows with automated email and SMS reminders sent to participants before their scheduled meetings.</p>
+                </div>
+            </li>
+            <!-- Custom Meeting Types -->
+            <li class="flex items-start bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                <i class="fas fa-cog text-2xl text-blue-500 mr-4 mt-1"></i>
+                <div>
+                    <h3 class="text-xl font-semibold mb-1">Custom Meeting Types</h3>
+                    <p class="text-gray-600">Create and customize different meeting types with specific durations, availability, and booking rules.</p>
+                </div>
+            </li>
+            <!-- Team Scheduling -->
+            <li class="flex items-start bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                <i class="fas fa-users text-2xl text-blue-500 mr-4 mt-1"></i>
+                <div>
+                    <h3 class="text-xl font-semibold mb-1">Team Scheduling</h3>
+                    <p class="text-gray-600">Coordinate schedules across teams, manage availability, and book meetings that work for everyone.</p>
+                </div>
+            </li>
+            <!-- Analytics & Insights -->
+            <li class="flex items-start bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                <i class="fas fa-chart-line text-2xl text-blue-500 mr-4 mt-1"></i>
+                <div>
+                    <h3 class="text-xl font-semibold mb-1">Analytics & Insights</h3>
+                    <p class="text-gray-600">Gain insights into your scheduling patterns, meeting effectiveness, and participant engagement with detailed analytics.</p>
+                </div>
+            </li>
+        </ul>
+
+        <!-- Explore All Features Button -->
+        <div class="text-center mt-12">
+            <a href="#" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">
+                Explore All Features
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MeetXccelerate - Add details</title>
+
+    <!-- CSS File -->
+    <link rel="stylesheet" href="Style.css" />
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-right">
+            <button class="icon-btn">
+                <i class="fa-regular fa-bell"></i>
+            </button>
+            <img src="./images/profile.jpg" alt="User" class="profile-pic">
+        </div>
+    </header>
+
+    <!-- Add details Selection -->
+    <main class="container">
+        <h2>Add details</h2>
+        <div class="location">
+            <h4>Location</h4>
+            <input type="radio" name="loc" value="zoom" id="zoom" checked>
+            <label for="zoom">Zoom</label>
+
+            <input type="radio" name="loc" value="gmeet" id="gmeet">
+            <label for="gmeet">Google Meet</label>
+
+            <input type="radio" name="loc" value="phone" id="phone">
+            <label for="phone">Phone</label>
+        </div>
+
+        <!-- Max bookings per day -->
+        <h4>Max bookings per day</h4>
+        <select name="booking" id="bookings">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+        <!-- Buffer time -->
+        <h4>Buffer time</h4>
+        <select name="b-time" id="b-time">
+            <option value="1m">1 min</option>
+            <option value="2m">2 min</option>
+            <option value="3m">3 min</option>
+            <option value="4m">4 min</option>
+            <option value="5m">5 min</option>
+        </select>
+
+        <!-- Custom questions -->
+        <div class="custom">
+            <label for="c-question"><h4>Custom questions</h4></label>
+            <input type="text" id="c-question" name="c-question" placeholder="Add a question">
+        </div>
+
+        <!-- Buttons -->
+        <button class="back">Back</button>
+        <button class="next">Next</button>
+    </main>
+
+    <!-- === JavaScript === -->
+    <script>
+        // Get elements
+        const radios = document.querySelectorAll('input[name="loc"]');
+        const bookingSelect = document.getElementById("bookings");
+        const bufferSelect = document.getElementById("b-time");
+        const customQuestion = document.getElementById("c-question");
+
+        // Preview object
+        let formDetails = {
+            location: "zoom",
+            bookings: bookingSelect.value,
+            buffer: bufferSelect.value,
+            question: ""
+        };
+
+        // Handle location change
+        radios.forEach(radio => {
+            radio.addEventListener("change", e => {
+                formDetails.location = e.target.value;
+                console.log("Location selected:", formDetails.location);
+            });
+        });
+
+        // Handle bookings
+        bookingSelect.addEventListener("change", e => {
+            formDetails.bookings = e.target.value;
+            console.log("Max bookings:", formDetails.bookings);
+        });
+
+        // Handle buffer
+        bufferSelect.addEventListener("change", e => {
+            formDetails.buffer = e.target.value;
+            console.log("Buffer time:", formDetails.buffer);
+        });
+
+        // Handle custom question
+        customQuestion.addEventListener("input", e => {
+            formDetails.question = e.target.value;
+            console.log("Custom question:", formDetails.question);
+        });
+    </script>
+</body>
+
+</html>

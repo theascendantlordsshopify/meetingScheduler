@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MeetXccelerate - Create New Workflow</title>
+
+    <!-- CSS File -->
+    <link rel="stylesheet" href="createNewWorkflow.css" />
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-right">
+            <button class="icon-btn">
+                <i class="fa-regular fa-circle-question" id="help"></i>
+            </button>
+            <img src="./images/profile.jpg" alt="User" class="profile-pic">
+        </div>
+    </header>
+
+    <main class="container">
+  <div class="container">
+    <div class="step">Step 1 of 2</div>
+    <div class="progress-bar">
+      <div class="progress"></div>
+    </div>
+    <h2>Create new workflow</h2>
+    
+    <form id="workflowForm">
+      <label for="name">Workflow name</label>
+      <input type="text" id="name" name="name" placeholder="My workflow" required>
+      
+      <label for="type">Workflow type</label>
+      <select id="type" name="type" required>
+        <option value="">Choose a workflow type</option>
+        <option value="automation">Automation</option>
+        <option value="approval">Approval</option>
+        <option value="notification">Notification</option>
+      </select>
+      
+      <label for="trigger">Trigger</label>
+      <select id="trigger" name="trigger" required>
+        <option value="">Choose</option>
+        <option value="time">Time-based</option>
+        <option value="event">Event-based</option>
+      </select>
+      
+      <label for="action">Action</label>
+      <select id="action" name="action" required>
+        <option value="">Choose</option>
+        <option value="email">Send Email</option>
+        <option value="slack">Send Slack Message</option>
+        <option value="update">Update Record</option>
+      </select>
+      
+      <button type="submit" class="btn">Continue to Builder</button>
+    </form>
+  </div>
+
+    </main>
+
+  <script>
+    document.getElementById('workflowForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const type = document.getElementById('type').value;
+      const trigger = document.getElementById('trigger').value;
+      const action = document.getElementById('action').value;
+      
+      if (!name || !type || !trigger || !action) {
+        alert('Please fill out all fields.');
+        return;
+      }
+      
+      alert(`Workflow Created!\n\nName: ${name}\nType: ${type}\nTrigger: ${trigger}\nAction: ${action}`);
+    });
+    
+  </script>    
+
+</body>
+
+</html>

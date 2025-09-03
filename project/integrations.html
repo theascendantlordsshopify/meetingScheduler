@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MeetXccelerate - Integrations</title>
+
+  <!-- CSS File -->
+  <link rel="stylesheet" href="integrations.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+  <!-- === TOPBAR === -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h2 class="logo">MeetXccelerate</h2>
+    </div>
+
+    <div class="header-right">
+      <nav class="nav-links">
+        <a href="./home.html">Home</a>
+        <a href="./features.html">Features</a>
+        <a href="./pricing.html">Pricing</a>
+        <a href="./resources.html">Resources</a>
+      </nav>
+
+      <div class="header-buttons">
+        <button class="action-btn">Book New Meeting</button>
+        <button class="action-btn">Invite Team</button>
+
+        <!-- Profile Dropdown Start -->
+        <div class="profile-dropdown-wrapper">
+          <button class="profile-button" id="profileBtn">
+            <img src="images/profile.jpg" alt="user's Profile" class="profile-img" />
+          </button>
+          <div class="profile-dropdown" id="dropdownMenu">
+            <a href="#">Settings</a>
+            <a href="#">Logout</a>
+          </div>
+        </div>
+        <!-- Profile Dropdown End -->
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================== -->
+  <!-- === INTEGRATIONS LAYOUT === -->
+
+  <div class="notifications-layout">
+
+    <!-- === SIDEBAR === -->
+    <aside class="sidebar">
+      <div class="user-profile">
+        <img src="images/profile.jpg" alt="user's Profile" />
+        <div class="user-info">
+          <strong class="username">
+            <h3>A Qudoos</h3>
+          </strong>
+          <small class="welcome-text">Welcome back!</small>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html" class="sidebar-link"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+          <li><a href="./event-types.html" class="sidebar-link"><i class="fas fa-calendar-alt"></i> Event Types</a></li>
+          <li><a href="./meetings.html" class="sidebar-link"><i class="fas fa-handshake"></i> Meetings</a></li>
+          <li><a href="./availibility.html" class="sidebar-link"><i class="fas fa-clock"></i>Availability</a></li>
+          <li><a href="./contacts.html" class="sidebar-link"><i class="fas fa-address-book"></i> Contacts</a></li>
+          <li><a href="./workflows.html" class="sidebar-link"><i class="fas fa-project-diagram"></i> Workflows</a></li>
+          <li><a href="./integrations.html" class="sidebar-link active-link"><i class="fas fa-plug"></i>
+              Integrations</a></li>
+          <li><a href="./notifications.html" class="sidebar-link"><i class="fas fa-bell"></i>
+              Notifications</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-wrapper">
+      <h1>Integration</h1>
+      <small>Connect your favorite tools to streamline scheduling and workflows.</small>
+
+      <input type="text" class="search-bar" placeholder="Search integrations">
+
+      <!-- Tags -->
+      <div class="tags">
+        <span class="tag">Calendar</span>
+        <span class="tag">Video Conferencing</span>
+        <span class="tag">CRM</span>
+        <span class="tag">Productivity</span>
+        <span class="tag">Automation</span>
+      </div>
+
+      <!-- Recently Connected -->
+      <h2>Recently Connected</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="./logos/google calender.png" alt="Google Calendar">
+          <h3>Google Calendar</h3>
+          <p>Sync events and availability</p>
+        </div>
+
+        <div class="card">
+          <img src="./logos/zoom.jpeg" alt="Zoom">
+          <h3>Zoom</h3>
+          <p>Host video meetings</p>
+        </div>
+
+        <div class="card">
+          <img src="./logos/slack.png" alt="Slack">
+          <h3>Slack</h3>
+          <p>Get notified about new events</p>
+        </div>
+      </div>
+
+      <!-- All Integrations -->
+      <h2>All Integrations</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="./logos/google calender.png" alt="Google Calendar">
+          <h3>Google Calendar</h3>
+          <p>Sync events and availability</p>
+        </div>
+
+        <div class="card">
+          <img src="./logos/outlook.jpeg" alt="Outlook Calendar">
+          <h3>Outlook Calendar</h3>
+          <p>Sync events and availability</p>
+        </div>
+
+        <div class="card">
+          <img src="./logos/zoom.jpeg" alt="Zoom">
+          <h3>Zoom</h3>
+          <p>Host video meetings</p>
+        </div>
+
+        <div class="card">
+          <img src="./logos/microsoft team.jpeg" alt="Microsoft Teams">
+          <h3>Microsoft Teams</h3>
+          <p>Host video meetings</p>
+        </div>
+
+        <div class="card">
+          <img src="./logos/slack.png" alt="Slack">
+          <h3>Slack</h3>
+          <p>Get notified about new events</p>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <img src="./logos/zapier.png" alt="Zapier">
+          <h3>Zapier</h3>
+          <p>Automate tasks</p>
+        </div>
+
+        <div class="card">
+          <img src="./logos/hubspott.png" alt="HubSpot">
+          <h3>HubSpot</h3>
+          <p>Manage Customer relationships</p>
+        </div>
+
+        <div class="card">
+          <img src="./logos/salesforceee.png" alt="Salesforce">
+          <h3>Salesforce</h3>
+          <p>Manage Customer relationships</p>
+        </div>
+
+
+        <div class="card">
+          <img src="./logos/notion.png" alt="Notion">
+          <h3>Notion</h3>
+          <p>Organize your work</p>
+        </div>
+
+        <div class="card">
+          <img src="./logos/trello.jpeg" alt="Trello">
+          <h3>Trello</h3>
+          <p>Manage projects</p>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <img src="./logos/asanaa.png" alt="Asana">
+          <h3>Asana</h3>
+          <p>Manage projects</p>
+        </div>
+
+        <div class="card empt-card"></div>
+        <div class="card empt-card"></div>
+        <div class="card empt-card"></div>
+        <div class="card empt-card"></div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- === External JavaScript === -->
+  <script src="integrations.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

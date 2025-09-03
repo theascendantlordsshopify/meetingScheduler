@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MeetXccelerate - Workflow Buildere</title>
+
+  <!-- CSS File -->
+  <link rel="stylesheet" href="workflowBuildere.css" />
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-right">
+      <button class="icon-btn">
+        <i class="fa-regular fa-circle-question" id="help"></i>
+      </button>
+      <img src="./images/profile.jpg" alt="User" class="profile-pic">
+    </div>
+  </header>
+
+  <main class="container">
+    <button class="edit-btn" onclick="editWorkflow()">Edit Workflow</button>
+
+    <div class="container">
+      <!-- Left Section -->
+      <div class="left">
+        <h2>Workflow Details</h2>
+        <div class="details">
+          <div>
+            <p><span>Name:</span> New User Onboarding</p>
+            <p><span>Status:</span> Active</p>
+          </div>
+
+          <div>
+            <p><span>Owner:</span> Alex Turner</p>
+            <p><span>Last Updated:</span> 2 days ago</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Section -->
+      <div class="right">
+        <h2>New User Onboarding</h2>
+        <div class="workflow-step">
+          <i class="fa-solid fa-arrow-pointer"></i>
+          <div>
+            <span class="label">Trigger:</span>
+            <span class="value">New user signs up</span>
+          </div>
+        </div>
+
+        <div class="workflow-step">
+          <i class="fa-solid fa-envelope-open"></i>
+          <div>
+            <span class="label">Action:</span>
+            <span class="value">Send welcome email</span>
+          </div>
+        </div>
+        <div class="workflow-step">
+          <i class="fa-solid fa-users"></i>
+          <div>
+            <span class="label">Action:</span>
+            <span class="value">Add user to marketing list</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function editWorkflow() {
+      alert("Edit Workflow button clicked!");
+    }
+  </script>
+</body>
+
+</html>

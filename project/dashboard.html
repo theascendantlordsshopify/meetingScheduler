@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MeetXccelerate - Dashboard</title>
+
+  <!-- CSS File -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+  <!-- === TOPBAR === -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h2 class="logo">MeetXccelerate</h2>
+    </div>
+
+    <div class="header-right">
+      <nav class="nav-links">
+        <a href="./home.html">Home</a>
+        <a href="./features.html">Features</a>
+        <a href="./pricing.html">Pricing</a>
+        <a href="./resources.html">Resources</a>
+      </nav>
+
+      <div class="header-buttons">
+        <button class="action-btn">Book New Meeting</button>
+        <button class="action-btn">Invite Team</button>
+
+        <!-- Profile Dropdown Start -->
+        <div class="profile-dropdown-wrapper">
+          <button class="profile-button" id="profileBtn">
+            <img src="images/profile.jpg" alt="user's Profile" class="profile-img" />
+          </button>
+          <div class="profile-dropdown" id="dropdownMenu">
+            <a href="#">Settings</a>
+            <a href="#">Logout</a>
+          </div>
+        </div>
+        <!-- Profile Dropdown End -->
+      </div>
+    </div>
+  </header>
+
+  <!-- === DASHBOARD LAYOUT === -->
+  <div class="dashboard-layout">
+
+    <!-- === SIDEBAR === -->
+    <aside class="sidebar">
+      <div class="user-profile">
+        <img src="images/profile.jpg" alt="user's Profile" />
+        <div class="user-info">
+          <strong class="username">
+            <h3>A Qudoos</h3>
+          </strong>
+          <small class="welcome-text">Welcome back!</small>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html" class="sidebar-link active-link"><i class="fas fa-chart-pie"></i> Dashboard</a>
+          </li>
+          <li><a href="./event-types.html" class="sidebar-link"><i class="fas fa-calendar-alt"></i> Event Types</a></li>
+          <li><a href="./meetings.html" class="sidebar-link"><i class="fas fa-handshake"></i> Meetings</a></li>
+          <li><a href="./availibility.html" class="sidebar-link"><i class="fas fa-clock"></i> Availability</a></li>
+          <li><a href="./contacts.html" class="sidebar-link"><i class="fas fa-address-book"></i> Contacts</a></li>
+          <li><a href="./workflows.html" class="sidebar-link"><i class="fas fa-project-diagram"></i> Workflows</a></li>
+          <li><a href="./integrations.html" class="sidebar-link"><i class="fas fa-plug"></i> Integrations</a></li>
+          <li><a href="./notifications.html" class="sidebar-link"><i class="fas fa-bell"></i> Notifications</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- === MAIN CONTENT === -->
+    <main class="main-wrapper">
+      <!-- GREETINGS -->
+      <div class="greetings">
+        <h1>Good Morning, Hammad</h1>
+        <button id="addMeetingBtn" class="action-btn" style="margin-top: 10px;">
+          + Add Dummy Meeting
+        </button>
+      </div>
+
+      <!-- DEV ONLY: Clear Meetings -->
+      <div style="margin: 10px 5px 20px 5px;">
+        <button id="clearMeetingsBtn" class="action-btn" style="background-color: #FF5C5C;">
+          Clear All Meetings
+        </button>
+      </div>
+
+      <!-- STATS -->
+      <section class="stats">
+        <div class="card confirmed" data-label="Confirmed">12</div>
+        <div class="card pending" data-label="Pending">3</div>
+        <div class="card cancelled" data-label="Cancelled">1</div>
+        <div class="card today" data-label="Today's Meetings">3</div>
+      </section>
+
+      <!-- UPCOMING -->
+      <div class="upcoming-wrapper">
+        <h2>Upcoming</h2>
+        <section class="upcoming">
+          <ul class="meeting-list">
+            <li>
+              <div class="icon"><i class="fas fa-clock"></i></div>
+              <div class="info"><strong>Weekly Sync</strong><br /><span>Mon, Nov 15, 10:00 AM</span></div>
+              <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+            </li>
+            <li>
+              <div class="icon"><i class="fas fa-clock"></i></div>
+              <div class="info"><strong>Design Review</strong><br /><span>Mon, Nov 15, 1:00 PM</span></div>
+              <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+            </li>
+            <li>
+              <div class="icon"><i class="fas fa-clock"></i></div>
+              <div class="info"><strong>Product Standup</strong><br /><span>Tue, Nov 16, 2:00 PM</span></div>
+              <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+            </li>
+            <li>
+              <div class="icon"><i class="fas fa-clock"></i></div>
+              <div class="info"><strong>Q4 Planning</strong><br /><span>Wed, Nov 17, 9:00 AM</span></div>
+              <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- RECENT ACTIVITY -->
+      <section class="recent-activity">
+        <h2>Recent Activity</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Meeting</th>
+                <th>Invitees</th>
+                <th>Date & Time</th>
+                <th>Location</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Design Review</td>
+                <td>Sarah, Alex, John</td>
+                <td>Mon, Nov 15, 1:00 PM</td>
+                <td>Virtual</td>
+                <td>Review design mocks</td>
+              </tr>
+              <tr>
+                <td>Product Standup</td>
+                <td>Sarah, Alex, John</td>
+                <td>Tue, Nov 16, 2:00 PM</td>
+                <td>Virtual</td>
+                <td>Discuss product roadmap</td>
+              </tr>
+              <tr>
+                <td>Q4 Planning</td>
+                <td>Sarah, Alex, John</td>
+                <td>Wed, Nov 17, 9:00 AM</td>
+                <td>Virtual</td>
+                <td>Plan Q4 initiatives</td>
+              </tr>
+              <tr>
+                <td>Weekly Sync</td>
+                <td>Sarah, Alex, John</td>
+                <td>Mon, Nov 15, 10:00 AM</td>
+                <td>Virtual</td>
+                <td>Sync on weekly priorities</td>
+              </tr>
+              <tr>
+                <td>New Feature Demo</td>
+                <td>Sarah, Alex, John</td>
+                <td>Thu, Nov 18, 3:00 PM</td>
+                <td>Virtual</td>
+                <td>Demo new product feature</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- PAGINATION -->
+      <section class="pagination-wrapper">
+        <div class="pagination">
+          <a href="#"><i class="fas fa-angle-left"></i></a>
+          <a href="#" class="active">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+          <a href="#"><i class="fas fa-angle-right"></i></a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

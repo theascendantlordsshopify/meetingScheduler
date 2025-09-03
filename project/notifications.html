@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MeetXccelerate - Notifications</title>
+
+  <!-- CSS File -->
+  <link rel="stylesheet" href="notifications.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+  <!-- === TOPBAR === -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <h2 class="logo">MeetXccelerate</h2>
+    </div>
+
+    <div class="header-right">
+      <nav class="nav-links">
+        <a href="./home.html">Home</a>
+        <a href="./features.html">Features</a>
+        <a href="./pricing.html">Pricing</a>
+        <a href="./resources.html">Resources</a>
+      </nav>
+
+      <div class="header-buttons">
+        <button class="action-btn">Book New Meeting</button>
+        <button class="action-btn">Invite Team</button>
+
+        <!-- Profile Dropdown Start -->
+        <div class="profile-dropdown-wrapper">
+          <button class="profile-button" id="profileBtn">
+            <img src="images/profile.jpg" alt="user's Profile" class="profile-img" />
+          </button>
+          <div class="profile-dropdown" id="dropdownMenu">
+            <a href="#">Settings</a>
+            <a href="#">Logout</a>
+          </div>
+        </div>
+        <!-- Profile Dropdown End -->
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================== -->
+  <!-- === NOTIFICATIONS LAYOUT === -->
+
+  <div class="notifications-layout">
+
+    <!-- === SIDEBAR === -->
+    <aside class="sidebar">
+      <div class="user-profile">
+        <img src="images/profile.jpg" alt="user's Profile" />
+        <div class="user-info">
+          <strong class="username">
+            <h3>A Qudoos</h3>
+          </strong>
+          <small class="welcome-text">Welcome back!</small>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html" class="sidebar-link"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+          <li><a href="./event-types.html" class="sidebar-link"><i class="fas fa-calendar-alt"></i> Event Types</a></li>
+          <li><a href="./meetings.html" class="sidebar-link"><i class="fas fa-handshake"></i> Meetings</a></li>
+          <li><a href="./availibility.html" class="sidebar-link"><i class="fas fa-clock"></i>Availability</a></li>
+          <li><a href="./contacts.html" class="sidebar-link"><i class="fas fa-address-book"></i> Contacts</a></li>
+          <li><a href="./workflows.html" class="sidebar-link"><i class="fas fa-project-diagram"></i> Workflows</a></li>
+          <li><a href="./integrations.html" class="sidebar-link"><i class="fas fa-plug"></i> Integrations</a></li>
+          <li><a href="./notifications.html" class="sidebar-link active-link"><i class="fas fa-bell"></i>
+              Notifications</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-wrapper">
+      <h1>Notifications</h1>
+
+      <input type="text" class="search-bar" placeholder="Search notifications">
+
+      <div class="tabs">
+        <div class="tab active">All</div>
+        <div class="tab">Meeting Updates</div>
+        <div class="tab">Reminders</div>
+        <div class="tab">Cancellations</div>
+        <div class="tab">System Alerts</div>
+      </div>
+
+      <div class="mark-read">
+        <button onclick="markAllRead()">Mark all as read</button>
+      </div>
+
+      <div class="notification-card">
+        <div class="icon"><i class="fa-regular fa-calendar-days"></i></div>
+        <div class="content">
+          <div class="title">Meeting Confirmed</div>
+          <div class="time">10:00 AM</div>
+          <div class="desc">Your meeting with Sophia Carter has been confirmed.</div>
+        </div>
+        <div class="menu">⋮</div>
+      </div>
+
+      <div class="notification-card">
+        <div class="icon"><i class="fa-solid fa-bell"></i></div>
+        <div class="content">
+          <div class="title">Reminder: Weekly Sync</div>
+          <div class="time">Yesterday</div>
+          <div class="desc">Reminder: Weekly sync with team Alpha is scheduled for tomorrow.</div>
+        </div>
+        <div class="menu">⋮</div>
+      </div>
+
+      <div class="notification-card">
+        <div class="icon"><i class="fa-solid fa-xmark"></i></div>
+        <div class="content">
+          <div class="title">Meeting Cancelled</div>
+          <div class="time">2 days ago</div>
+          <div class="desc">Your meeting with Owen Bennett has been cancelled.</div>
+        </div>
+        <div class="menu">⋮</div>
+      </div>
+
+      <div class="notification-card">
+        <div class="icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div class="content">
+          <div class="title">System Update</div>
+          <div class="time">3 days ago</div>
+          <div class="desc">System update: New features added to enhance your schedulince.</div>
+        </div>
+        <div class="menu">⋮</div>
+      </div>
+
+      <div class="notification-card">
+        <div class="icon"><i class="fa-regular fa-calendar-days"></i></div>
+        <div class="content">
+          <div class="title">Meeting Confirmed</div>
+          <div class="time">4 days ago</div>
+          <div class="desc">Your meeting with Chloe Harper has been confirmed.</div>
+        </div>
+        <div class="menu">⋮</div>
+      </div>
+
+      <div class="notification-card">
+        <div class="icon"><i class="fa-solid fa-bell"></i></div>
+        <div class="content">
+          <div class="title">Reminder: Weekly Sync</div>
+          <div class="time">5 days ago</div>
+          <div class="desc">Reminder: Weekly sync with team Beta is scheduled for next week.</div>
+        </div>
+        <div class="menu">⋮</div>
+      </div>
+
+      <div class="notification-card">
+        <div class="icon"><i class="fa-solid fa-xmark"></i></div>
+        <div class="content">
+          <div class="title">Meeting Cancelled</div>
+          <div class="time">6 days ago</div>
+          <div class="desc">Your meeting with Liam Thompson has been cancelled.</div>
+        </div>
+        <div class="menu">⋮</div>
+      </div>
+
+      <div class="notification-card">
+        <div class="icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <div class="content">
+          <div class="title">System Update</div>
+          <div class="time">7 days ago</div>
+          <div class="desc">System update: Performance improvements and bug fixes.</div>
+        </div>
+        <div class="menu">⋮</div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- === External JavaScript === -->
+  <script src="notifications.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

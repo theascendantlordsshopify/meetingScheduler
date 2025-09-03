@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MeetXccelerate</title>
+
+    <!-- CSS File -->
+    <link rel="stylesheet" href="Style.css" />
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-right">
+            <button class="icon-btn">
+                <i class="fa-regular fa-circle-question" id="help"></i>
+            </button>
+            <img src="./images/profile.jpg" alt="User" class="profile-pic">
+        </div>
+    </header>
+
+    <main class="container">
+  <!-- Search Bar -->
+  <div class="search-container">
+    <input type="text" placeholder="Search integrations..." id="searchInput">
+    <span class="close-btn" onclick="clearSearch()">✕</span>
+  </div>
+
+  <!-- Integration Card -->
+  <div class="integration-card" id="zoomCard">
+    <div class="integration-info">
+      <img src="./logos/zoom.jpeg" alt="Zoom">
+      <div class="integration-text">
+        <h4>Zoom</h4>
+        <p>Connect your ConnectUp account to Zoom to automatically add video conferencing details to your scheduled events.</p>
+      </div>
+    </div>
+    <button class="connect-btn">Connect</button>
+  </div>
+
+    </main>
+
+    <script>
+    // Clear Search
+    function clearSearch() {
+      document.getElementById("searchInput").value = "";
+      filterIntegration();
+    }
+
+    // Filter integration
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("input", filterIntegration);
+
+    function filterIntegration() {
+      const filter = searchInput.value.toLowerCase();
+      const card = document.getElementById("zoomCard");
+      if (filter.includes("zoom") || filter === "") {
+        card.style.display = "flex";
+      } else {
+        card.style.display = "none";
+      }
+    }
+  </script>    
+</body>
+
+</html>
