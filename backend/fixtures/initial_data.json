@@ -1,0 +1,98 @@
+[
+  {
+    "model": "integrations.integrationprovider",
+    "pk": 1,
+    "fields": {
+      "name": "Google Calendar",
+      "slug": "google-calendar",
+      "category": "calendar",
+      "description": "Sync events and availability with Google Calendar",
+      "website_url": "https://calendar.google.com",
+      "logo_url": "https://developers.google.com/calendar/images/calendar_icon.png",
+      "auth_type": "oauth2",
+      "features": ["calendar_sync", "event_creation", "conflict_detection"],
+      "is_active": true,
+      "is_popular": true
+    }
+  },
+  {
+    "model": "integrations.integrationprovider",
+    "pk": 2,
+    "fields": {
+      "name": "Zoom",
+      "slug": "zoom",
+      "category": "video",
+      "description": "Host video meetings with Zoom integration",
+      "website_url": "https://zoom.us",
+      "logo_url": "https://zoom.us/favicon.ico",
+      "auth_type": "oauth2",
+      "features": ["video_meetings", "meeting_creation", "recording"],
+      "is_active": true,
+      "is_popular": true
+    }
+  },
+  {
+    "model": "integrations.integrationprovider",
+    "pk": 3,
+    "fields": {
+      "name": "Slack",
+      "slug": "slack",
+      "category": "communication",
+      "description": "Get notified about new events in Slack",
+      "website_url": "https://slack.com",
+      "logo_url": "https://slack.com/favicon.ico",
+      "auth_type": "oauth2",
+      "features": ["notifications", "channel_messages", "direct_messages"],
+      "is_active": true,
+      "is_popular": true
+    }
+  },
+  {
+    "model": "workflows.workflowtrigger",
+    "pk": 1,
+    "fields": {
+      "name": "Meeting Created",
+      "trigger_type": "meeting_created",
+      "description": "Triggered when a new meeting is scheduled",
+      "config_schema": {
+        "properties": {
+          "event_types": {"type": "array", "items": {"type": "string"}},
+          "conditions": {"type": "object"}
+        }
+      },
+      "is_active": true
+    }
+  },
+  {
+    "model": "workflows.workflowaction",
+    "pk": 1,
+    "fields": {
+      "name": "Send Email",
+      "action_type": "send_email",
+      "description": "Send an email notification",
+      "config_schema": {
+        "properties": {
+          "to": {"type": "string"},
+          "subject": {"type": "string"},
+          "body": {"type": "string"},
+          "template": {"type": "string"}
+        },
+        "required": ["to", "subject", "body"]
+      },
+      "is_active": true
+    }
+  },
+  {
+    "model": "notifications.notificationtemplate",
+    "pk": 1,
+    "fields": {
+      "name": "Meeting Confirmation Email",
+      "template_type": "meeting_confirmation",
+      "channel": "email",
+      "subject": "Meeting Confirmed: {{meeting_title}}",
+      "body_template": "Your meeting '{{meeting_title}}' has been confirmed for {{meeting_date}} at {{meeting_time}}.",
+      "is_active": true,
+      "is_system_template": true
+    }
+  }
+]
